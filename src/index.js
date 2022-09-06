@@ -1,6 +1,9 @@
+import './vendor/fonts/fonts.css'
+import './vendor/normalize.css';
+import './index.css'
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './components/App/App.js';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';

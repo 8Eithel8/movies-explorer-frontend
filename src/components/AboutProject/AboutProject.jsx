@@ -1,9 +1,8 @@
-import React from "react";
 import './AboutProject.css';
 
 function AboutProject() {
     return (
-        <section className="project" id="project">
+        <section className="project">
             <h2 className="section-title">О проекте</h2>
             <ul className="project__brief">
                 <li>

@@ -1,7 +1,7 @@
 .project {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 110px 70px 140px 70px;
+    padding: 110px 70px 96px 70px;
 }
 
 @media (max-width: 1023px) {
@@ -14,7 +14,7 @@
 @media (max-width: 767px) {
     .project {
         max-width: 284px;
-        padding: 70px 0 60px 0;
+        padding: 70px 0;
     }
 }
 

@@ -31,17 +31,6 @@
     }
 }
 
-.link {
-    text-decoration: none;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-}
-
-.link:hover {
-    opacity: .6;
-    transition: opacity 0.3s ease;
-}
-
 .section-title {
     font-family: 'Inter',  'Arial', sans-serif;
     font-style: normal;
@@ -60,6 +49,7 @@
     .section-title {
         font-size: 18px;
         line-height: 22px;
+        padding-bottom: 28px;
     }
 }
 

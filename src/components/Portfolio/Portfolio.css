@@ -25,7 +25,7 @@
     font-size: 18px;
     line-height: 20px;
     color: #8B8B8B;
-    margin: 20px 0 23px 0;
+    margin: 20px 0 32px 0;
 }
 
 @media (max-width: 1023px) {
@@ -50,7 +50,7 @@
 
 .portfolio__item {
     border-bottom: 1px solid #424242;
-    padding: 0;
+    padding: 17px 0 22px 0;
 }
 
 .portfolio__item:last-of-type {
@@ -118,10 +118,11 @@
 }
 
 .portfolio__link-icon {
-    width: 29px;
-    height: 60px;
     object-fit: contain;
     object-position: center;
+    margin: 4px 5px 0 0;
+    width: 18px;
+    height: auto;
 }
 
 @media (max-width: 1023px) {

@@ -1,0 +1,109 @@
+.search {
+    max-width: 1140px;
+    /*height: 72px;*/
+    margin: 0 auto;
+    padding: 70px 0;
+}
+
+@media (max-width: 1023px) {
+    .search {
+        max-width: 708px;
+        padding-bottom: 90px;
+    }
+}
+
+@media (max-width: 767px) {
+    .search {
+        max-width: 292px;
+        padding: 70px 0 0 0;
+    }
+}
+
+.search__container {
+    /*height: 72px;*/
+    box-sizing: border-box;
+    padding: 15px 30px 15px 25px;
+    background: #222222;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+    border-radius: 9px;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+    .search__container {
+        padding: 6px 6px 6px 12px;
+    }
+}
+
+.search__form {
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-right: 1px solid #505050;
+    flex-grow: 1;
+    padding: 0 19px 0 0;
+}
+
+@media (max-width: 767px) {
+    .search__form {
+        min-height: 44px;
+    }
+}
+
+.search__field-label {
+    background: #222222;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+    border-radius: 9px;
+    position: relative;
+}
+
+.search__field {
+    background-color: transparent;
+    border: none;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    width: 90%;
+    color: #8B8B8B;
+    margin-left: 35px;
+}
+
+
+@media (max-width: 767px) {
+    .search__field {
+        font-size: 16px;
+        line-height: 16px;
+    }
+}
+
+.search__icon {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background-image: url("../../images/icon-searchr.svg");
+    top: 0;
+    left: 0;
+}
+
+.search__button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    color: #fff;
+    background: #4285F4;
+    border-radius: 50%;
+    background-image: url("../../images/arrow_search.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@media (max-width: 767px) {
+    .search__button {
+        padding: 13px 20px;
+    }
+}

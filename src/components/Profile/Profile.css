@@ -1,0 +1,127 @@
+.profile {
+    padding: 74px 0 70px 0;
+    margin: auto 0;
+}
+
+@media (max-width: 1023px) {
+    .profile {
+        padding-top: 6px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .profile {
+        padding: 70px 30px;
+        justify-content: flex-start;
+        box-sizing: border-box;
+        height: 100%;
+    }
+}
+
+.profile-title {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0 0 110px 0;
+}
+
+@media (max-width: 1023px) {
+    .profile-title {
+        margin: 230px 0 82px 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .profile-title {
+        max-width: 260px;
+        margin:0 auto 82px auto;
+    }
+}
+
+.profile-form {
+    max-width: 410px;
+    margin: 0 auto;
+    min-height: 345px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+}
+
+@media (max-width: 1023px) {
+    .profile-form {
+        min-height: 335px;
+    }
+}
+
+@media (max-width: 767px) {
+    .profile-form {
+        max-width: 260px;
+        flex-grow: 10;
+    }
+}
+
+.profile-form__set {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 15px 0;
+}
+
+.profile-form__set:nth-child(1) {
+    border-bottom: 1px solid rgba(66, 66, 66, 1);
+}
+
+.profile-form__label {
+    display: block;
+}
+
+.profile-form__field {
+    border: none;
+    width: 80%;
+    background-color: transparent;
+    text-align: right;
+}
+
+.profile-text-field {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    color: #FFFFFF;
+}
+
+.profile-form__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 17px;
+}
+
+.profile-form__button {
+    background: transparent;
+    border: none;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.profile-form__button_edit {
+    color: #FFFFFF;
+}
+
+.profile-form__button_logout {
+    color: #EE3465;
+}

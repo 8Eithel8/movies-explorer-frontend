@@ -7,6 +7,7 @@ import './Main.css';
 // import Movies from "../Movies/Movies.jsx";
 // import Register from "../Register/Register.jsx";
 import Login from "../Login/Login.jsx";
+import Profile from "../Profile/Profile.jsx";
 
 function Main() {
     return (
@@ -19,7 +20,8 @@ function Main() {
 
             {/*<Movies/>*/}
             {/*<Register/>*/}
-            <Login/>
+            {/*<Login/>*/}
+            <Profile/>
         </main>
     );
 }

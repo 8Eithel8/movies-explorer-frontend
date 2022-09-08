@@ -1,25 +1,29 @@
 import './Navigation.css';
+import {Link} from "react-router-dom";
 
 function Navigation(props) {
     return (
-        <>
-            {/*<div className="header__menu">*/}
-            {/*    <a className="header__link header__button-signin text-btn" onClick={props.onclick}>Регистрация</a>*/}
-            {/*    <button className="header__button text-btn" onClick={props.onclick}>Войти</button>*/}
+        <div className="nav">
+            {/*<div className="nav__menu">*/}
+            {/*    <a className="nav__link nav__button-signin text-btn" onClick={props.onclick}>Регистрация</a>*/}
+            {/*    <button className="nav__button text-btn" onClick={props.onclick}>Войти</button>*/}
             {/*</div>*/}
-            {/*<div className="header__menu header__menu_movie">*/}
-            {/*    <div className="header__nav">*/}
-            {/*    <a href='#' className="header__link link" onClick={props.onclick}>Фильмы</a>*/}
-            {/*    <a href='#' className="header__link link" onClick={props.onclick}>Сохранённые фильмы</a>*/}
-            {/*    </div>*/}
-            {/*    <a href='#' className="header__link link header__link_profile text-btn"*/}
-            {/*       onClick={props.onclick}>Аккаунт</a>*/}
-            {/*</div>*/}
-            <input id="header__toggle" type="checkbox"/>
-            <label className="header__button-burger" htmlFor="header__toggle">
-                <span></span>
-            </label>
-        </>
+            <div className="nav__container">
+                <div className="nav__menu nav__menu_full">
+                    <div className="nav__links">
+                        <Link href='#' className="nav__link nav__link_hidden" onClick={props.onclick}>Главная</Link>
+                        <Link href='#' className="nav__link" onClick={props.onclick}>Фильмы</Link>
+                        <Link href='#' className="nav__link" onClick={props.onclick}>Сохранённые фильмы</Link>
+                    </div>
+                    <a href='#' className="nav__link nav__link_profile text-btn"
+                       onClick={props.onclick}>Аккаунт</a>
+                </div>
+                <input id="nav__toggle" type="checkbox"/>
+                <label className="nav__button-burger" htmlFor="nav__toggle">
+                    <span></span>
+                </label>
+            </div>
+        </div>
     );
 
 }

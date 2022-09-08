@@ -1,6 +1,7 @@
 .profile {
     padding: 74px 0 70px 0;
     margin: auto 0;
+
 }
 
 @media (max-width: 1023px) {
@@ -15,10 +16,9 @@
 
 @media (max-width: 767px) {
     .profile {
-        padding: 70px 30px;
-        justify-content: flex-start;
+        padding: 70px 30px 40px 30px;
         box-sizing: border-box;
-        height: 100%;
+        height: calc(100vh - 74px);
     }
 }
 
@@ -41,8 +41,9 @@
 
 @media (max-width: 767px) {
     .profile-title {
-        max-width: 260px;
-        margin:0 auto 82px auto;
+        /*max-width: 260px;*/
+        width: 100%;
+        margin: 0 0 65px 0;
     }
 }
 
@@ -65,7 +66,8 @@
 @media (max-width: 767px) {
     .profile-form {
         max-width: 260px;
-        flex-grow: 10;
+        height: 100%;
+        flex-grow: 1;
     }
 }
 
@@ -116,6 +118,13 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
+}
+
+@media (max-width: 767px) {
+    .profile-form__button {
+        font-size: 12px;
+        line-height: 15px;
+    }
 }
 
 .profile-form__button_edit {

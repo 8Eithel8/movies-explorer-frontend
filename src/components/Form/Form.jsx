@@ -5,21 +5,21 @@ function Form() {
     return (
         <form action="" className="auth__form" name="auth-form">
             <div className="auth__container">
-                <label className="auth__label text-label" htmlFor="name">
+                <label className="auth__label" htmlFor="name">
                     Имя
-                    <input className="auth__field text-field" type="text" name="name" id="name" value="Анастасия"
+                    <input className="auth__field" type="text" name="name" id="name" value="Анастасия"
                            required/>
                     {/*<span class="auth-form__error name-error">Что-то пошло не так...</span>*/}
                 </label>
-                <label className="auth__label text-label" htmlFor="email">
+                <label className="auth__label" htmlFor="email">
                     E-mail
-                    <input className="auth__field text-field" type="email" name="email" id="email"
+                    <input className="auth__field" type="email" name="email" id="email"
                            value="pochta@ya.ru" required/>
                     {/*<span class="auth-form__error name-error">Что-то пошло не так...</span>*/}
                 </label>
-                <label className="auth__label text-label" htmlFor="pass">
+                <label className="auth__label" htmlFor="pass">
                     Пароль
-                    <input className="auth__field text-field error" type="password" name="email" id="pass"
+                    <input className="auth__field error" type="password" name="email" id="pass"
                            value="pochta@ya.ru" required/>
                     <span className="auth__error name-error">Что-то пошло не так...</span>
                 </label>

@@ -1,7 +1,8 @@
 .profile {
     padding: 74px 0 70px 0;
     margin: auto 0;
-
+    height: calc(100vh - 74px);
+    box-sizing: border-box;
 }
 
 @media (max-width: 1023px) {
@@ -17,8 +18,6 @@
 @media (max-width: 767px) {
     .profile {
         padding: 70px 30px 40px 30px;
-        box-sizing: border-box;
-        height: calc(100vh - 74px);
     }
 }
 

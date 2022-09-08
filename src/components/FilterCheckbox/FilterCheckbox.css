@@ -3,9 +3,15 @@
     margin: 10px 0 0 30px;
 }
 
+@media (max-width: 1023px) {
+    .filter-group {
+        margin-left: 22px;
+    }
+}
+
 @media (max-width: 767px) {
-    .filter-group__text {
-        margin: 31px 0 64px 0;
+    .filter-group {
+        margin: 11px 0 38px 3px;
     }
 }
 
@@ -46,5 +52,5 @@
     .filter-group__text {
         font-size: 11px;
         line-height: 18px;
-    }
+     }
 }

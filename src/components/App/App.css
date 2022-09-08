@@ -3,6 +3,7 @@
   background-color: #202020;
   color: white;
   min-width: 320px;
-  min-height: 100vh;
+  height: 100%;
   position: relative;
+  min-height: 580px;
 }

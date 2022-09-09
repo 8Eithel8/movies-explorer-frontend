@@ -9,6 +9,12 @@
     border-top: 1px solid rgba(170, 170, 170, .2);
 }
 
+@media (max-width: 1200px) {
+    .cards {
+        grid-template-columns: repeat(3, 270px);
+    }
+}
+
 @media (max-width: 1023px) {
     .cards {
         row-gap: 36px;

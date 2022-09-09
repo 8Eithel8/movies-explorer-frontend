@@ -1,3 +1,11 @@
+/*@media (max-width: 1023px) {*/
+/*    .nav {*/
+/*       position: relative;*/
+/*       height: 100vh;*/
+/*       width: 100vw;*/
+/*    }*/
+/*}*/
+
 @media (max-width: 1023px) {
     .nav {
         content: "";
@@ -8,6 +16,7 @@
         height: 100vh;
         width: 100vw;
         z-index: 11;
+        visibility: hidden;
     }
 }
 
@@ -169,98 +178,3 @@
     }
 }
 
-/*burger*/
-.nav__button-burger {
-    display: none;
-}
-
-@media (max-width: 1023px) {
-    .nav__button-burger {
-        display: flex;
-        align-items: center;
-        position: absolute;
-        top: 26px;
-        right: 38px;
-        width: 28px;
-        height: 23px;
-        cursor: pointer;
-        z-index: 12;
-    }
-}
-
-@media (max-width: 767px) {
-    .nav__button-burger {
-        width: 22px;
-        height: 22px;
-        top: 27px;
-        right: 23px;
-    }
-}
-
-#nav__toggle {
-    opacity: 0;
-}
-
-#nav__toggle:checked ~ .nav__button-burger > span {
-    transform: rotate(45deg);
-}
-
-#nav__toggle:checked ~ .nav__button-burger > span::before {
-    top: 0;
-    transform: rotate(0);
-}
-
-#nav__toggle:checked ~ .nav__button-burger > span::after {
-    top: 0;
-    transform: rotate(90deg);
-}
-
-#nav__toggle:checked ~ .nav__nav {
-    visibility: visible;
-    left: 0;
-}
-
-.nav__button-burger > span,
-.nav__button-burger > span::before,
-.nav__button-burger > span::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 3px;
-    background-color: #FFFFFF;
-    transition-duration: .25s;
-}
-
-@media (max-width: 767px) {
-    .nav__button-burger > span,
-    .nav__button-burger > span::before,
-    .nav__button-burger > span::after {
-        height: 2.5px;
-    }
-}
-
-.nav__button-burger > span::before {
-    content: '';
-    top: -10px;
-}
-
-
-@media (max-width: 767px) {
-    .nav__button-burger > span::before {
-        content: '';
-        top: -9px;
-    }
-}
-
-.nav__button-burger > span::after {
-    content: '';
-    top: 10px;
-}
-
-
-@media (max-width: 767px) {
-    .nav__button-burger > span::after {
-        content: '';
-        top: 9px;
-    }
-}

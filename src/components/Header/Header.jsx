@@ -2,6 +2,7 @@ import React from "react";
 import './Header.css';
 import Navigation from "../Navigation/Navigation.jsx";
 import Logo from "../Logo/Logo.jsx";
+import {Link} from "react-router-dom";
 
 // import {Link, Route, Switch} from "react-router-dom";
 

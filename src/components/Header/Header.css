@@ -69,12 +69,6 @@
 
 #header__toggle:checked ~ .nav {
     visibility: visible;
-    right: -50px;
-}
-
-#header__toggle:checked ~ .nav {
-    visibility: visible;
-    right: -50px;
 }
 
 .header__button-burger > span,

@@ -15,8 +15,8 @@ function Navigation(props) {
                             <Link href='#' className="nav__link" onClick={props.onclick}>Фильмы</Link>
                             <Link href='#' className="nav__link" onClick={props.onclick}>Сохранённые фильмы</Link>
                         </div>
-                        <a href='#' className="nav__link nav__link_profile text-btn"
-                           onClick={props.onclick}>Аккаунт</a>
+                        <Link href='#' className="nav__link nav__link_profile text-btn"
+                           onClick={props.onclick}>Аккаунт</Link>
                     </div>
                 </div>
 

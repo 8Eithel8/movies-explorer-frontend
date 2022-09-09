@@ -3,19 +3,19 @@ import {Link} from "react-router-dom";
 
 function Form() {
     return (
-        <form action="" className="form" name="form-auth">
+        <form className="form" name="form-auth">
             <div className="form__container">
                 <label className="form__label" htmlFor="name">
                     Имя
                     <input className="form__field" type="text" name="name" id="name" value="Анастасия"
                            required/>
-                    {/*<span class="form-form__error name-error">Что-то пошло не так...</span>*/}
+                    {/*<span class="form__error name-error">Что-то пошло не так...</span>*/}
                 </label>
                 <label className="form__label" htmlFor="email">
                     E-mail
                     <input className="form__field" type="email" name="email" id="email"
                            value="pochta@ya.ru" required/>
-                    {/*<span class="form-form__error name-error">Что-то пошло не так...</span>*/}
+                    {/*<span class="form__error name-error">Что-то пошло не так...</span>*/}
                 </label>
                 <label className="form__label" htmlFor="pass">
                     Пароль

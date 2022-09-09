@@ -4,7 +4,7 @@ import Form from "../Form/Form.jsx";
 
 function Login() {
     return (
-        <section className="auth">
+        <main className="auth">
             <Logo/>
             <h1 className="title title-page">Рады видеть!</h1>
             <Form/>
@@ -13,7 +13,7 @@ function Login() {
             </p>
 
             {/*<Link to="/sign-in" className="auth-form__text link"> Войти</Link>*/}
-        </section>
+        </main>
     );
 }
 

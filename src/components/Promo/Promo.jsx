@@ -7,7 +7,6 @@ function Promo() {
             <div className="promo__image"></div>
         </section>
     );
-
 }
 
 export default Promo;

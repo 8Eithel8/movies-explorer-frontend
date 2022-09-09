@@ -1,6 +1,5 @@
 import './Portfolio.css';
 import arrow from "../../images/arrow-link.svg";
-import {Link} from "react-router-dom";
 
 function Portfolio() {
     return (

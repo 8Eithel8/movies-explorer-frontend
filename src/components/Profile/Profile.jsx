@@ -1,10 +1,8 @@
-import {Link} from "react-router-dom";
-import Logo from "../Logo/Logo.jsx";
 import './Profile.css';
 
 function Profile() {
     return (
-        <section className="profile">
+        <main className="profile">
             <h1 className="profile-title title-page">Привет, Анастасия!</h1>
             <form action="" className="profile-form">
                 <div>
@@ -32,7 +30,7 @@ function Profile() {
                     </button>
                 </div>
             </form>
-        </section>
+        </main>
     );
 }
 

@@ -50,8 +50,6 @@
     padding: 12px;
 }
 
-/*TODO сделать переполнение текста*/
-
 .card__title {
     font-family: 'Inter', 'Arial', sans-serif;
     font-style: normal;
@@ -60,6 +58,12 @@
     line-height: 16px;
     color: #FFFFFF;
     margin: 0 0 5px 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
 }
 
 .card__duration {

@@ -24,7 +24,7 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: #fff;
+    background: #F5F5F5;
     position: absolute;
     top: 2px;
     left: 2px;
@@ -36,6 +36,19 @@
 .filter-group__checkbox:checked + .filter-group__checkbox-label {
     background-color: #3DDC84;
     left: 17px;
+}
+
+.filter-group__background {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 35px;
+    height: 20px;
+    background-color: #222;
+    border-radius: 50px;
+    z-index: 0;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
 }
 
 .filter-group__text {

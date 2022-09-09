@@ -11,14 +11,14 @@ function Profile() {
                             Имя
                         </label>
                         <input className="profile-form__field  profile-text-field" type="text" name="name" id="name"
-                               value="Анастасия" required/>
+                               defaultValue="Анастасия" required/>
                     </fieldset>
                     <fieldset className="profile-form__set">
                         <label className="profile-form__label  profile-text-field" htmlFor="email">
                             E-mail
                         </label>
                         <input className="profile-form__field  profile-text-field" type="text" name="email" id="email"
-                               value="pochta@ya.ru" required/>
+                               defaultValue="pochta@ya.ru" required/>
                     </fieldset>
                 </div>
                 <div className="profile-form__buttons">

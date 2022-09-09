@@ -24,9 +24,14 @@ function Form() {
                     <span className="form__error name-error">Что-то пошло не так...</span>
                 </label>
             </div>
-            <button className="form__button" type="submit"
-                    aria-label="Редактировать">Зарегистрироваться
-            </button>
+            <div>
+                <button className="form__button" type="submit"
+                        aria-label="Редактировать">Зарегистрироваться
+                </button>
+                <p className="form__text">Ещё не зарегистрированы?
+                    <Link className="form__text form__text_color link" href="#">Регистрация</Link>
+                </p>
+            </div>
         </form>
     );
 }

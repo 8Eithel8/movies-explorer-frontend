@@ -1,6 +1,5 @@
 import './AboutMe.css';
 import photo from "../../images/DSC00305.jpg";
-import {Link} from "react-router-dom";
 
 function AboutMe() {
     return (
@@ -15,7 +14,11 @@ function AboutMe() {
                         Свободное время провожу на природе в обнимку с фотоаппаратом или за какой-нибудь
                         захватывающей экономической настольной игрй в компании друзей.
                     </p>
-                    <a href="https://github.com/8Eithel8" className="info__link link" target='_blank'>Github</a>
+                    <a href="https://github.com/8Eithel8"
+                       className="info__link link"
+                       target='_blank'
+                       rel="noreferrer"
+                    >Github</a>
                 </div>
                 <img className="info__photo" src={photo} alt="Фото Анастасии"/>
             </div>

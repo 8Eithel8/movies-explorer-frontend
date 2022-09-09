@@ -8,8 +8,9 @@ function SavedMovies() {
         <main className="movies">
             <SearchForm/>
             <MoviesCardList
-            isSaved={true}
-            cards={cards.filter(card => card.like)}/>
+                isSaved={true}
+                cards={cards.filter(card => card.like)}
+            />
         </main>
     );
 }

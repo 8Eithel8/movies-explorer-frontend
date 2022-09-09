@@ -1,3 +1,5 @@
+/*TODO сделать навигацию слева, сейчас она не на месте, в декстопном режиме*/
+
 .header {
     box-sizing: border-box;
     width: 100%;
@@ -19,6 +21,51 @@
 @media (max-width: 767px) {
     .header {
         padding: 18px 14px;
+    }
+}
+
+.header__menu {
+    display: flex;
+    align-items: center;
+    padding-bottom: 3px;
+    gap: 20px;
+}
+
+@media (max-width: 767px) {
+    .header__menu {
+        gap: 12px;
+    }
+}
+
+.header__link {
+    text-decoration: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.header__button-signup {
+    color: #FFFFFF;
+    background-color: transparent;
+    margin-right: 10px;
+}
+
+@media (max-width: 767px) {
+    .header__button-signup {
+        margin-right: 0;
+    }
+}
+
+.header__button {
+    border: none;
+    color: #000000;
+    background: #3DDC84;
+    border-radius: 3px;
+    padding: 8px 20px;
+}
+
+@media (max-width: 767px) {
+    .header__button {
+        padding: 5px 12px;
     }
 }
 
@@ -115,4 +162,8 @@
         content: '';
         top: 9px;
     }
+}
+
+.header__menu_hidden {
+    display: none;
 }

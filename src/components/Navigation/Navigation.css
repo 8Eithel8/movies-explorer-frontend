@@ -45,6 +45,8 @@
     }
 }
 
+
+
 .nav__menu_full {
     width: 100%;
     justify-content: space-between;
@@ -159,20 +161,6 @@
     background-image: url("../../images/icon__COLOR_icon-main.svg");
     background-repeat: no-repeat;
     background-position: center;
-}
-
-.nav__button {
-    border: none;
-    color: #000000;
-    background: #3DDC84;
-    border-radius: 3px;
-    padding: 8px 20px;
-}
-
-@media (max-width: 767px) {
-    .nav__button {
-        padding: 5px 12px;
-    }
 }
 
 .nav__button-signin {

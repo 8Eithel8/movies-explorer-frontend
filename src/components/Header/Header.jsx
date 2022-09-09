@@ -17,8 +17,8 @@ function Header(props) {
         <header className="header">
             <Logo/>
             <div className={authClass}>
-                <Link className="header__link header__button-signup text-btn link" onClick={props.onclick}>Регистрация</Link>
-                <button className="header__button text-btn" onClick={props.onclick}>Войти</button>
+                <Link to="/signup" className="header__button-signup text-btn link">Регистрация</Link>
+                <Link to="/signin" className="header__button text-btn link">Войти</Link>
             </div>
             <div className={hidden}>
                 <input id="header__toggle" type="checkbox"/>

@@ -37,13 +37,10 @@
     }
 }
 
-.header__link {
+.header__button-signup {
     text-decoration: none;
     opacity: 1;
     transition: opacity 0.3s ease;
-}
-
-.header__button-signup {
     color: #FFFFFF;
     background-color: transparent;
     margin-right: 10px;
@@ -61,6 +58,7 @@
     background: #3DDC84;
     border-radius: 3px;
     padding: 8px 20px;
+    text-decoration: none;
 }
 
 @media (max-width: 767px) {

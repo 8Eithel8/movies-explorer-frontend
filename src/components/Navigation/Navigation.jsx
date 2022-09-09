@@ -5,7 +5,7 @@ function Navigation(props) {
     return (
         <div className="nav">
             {/*<div className="nav__menu">*/}
-            {/*    <a className="nav__link nav__button-signin text-btn" onClick={props.onclick}>Регистрация</a>*/}
+                <Link className="nav__link nav__button-signin text-btn" onClick={props.onclick}>Регистрация</Link>
             {/*    <button className="nav__button text-btn" onClick={props.onclick}>Войти</button>*/}
             {/*</div>*/}
                 <div className="nav__container">

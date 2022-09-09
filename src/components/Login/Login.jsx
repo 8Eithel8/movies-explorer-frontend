@@ -9,7 +9,7 @@ function Login() {
             <h1 className="title title-page">Рады видеть!</h1>
             <Form/>
             <p className="auth__text">Ещё не зарегистрированы?
-                <a className="auth__text auth__text_color" href="#">Регистрация</a>
+                <Link className="auth__text auth__text_color" href="#">Регистрация</Link>
             </p>
 
             {/*<Link to="/sign-in" className="auth-form__text"> Войти</Link>*/}

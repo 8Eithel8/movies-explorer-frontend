@@ -1,17 +1,24 @@
 import './MoviesCard.css'
-import photo from "../../images/pic__COLOR_pic.jpg";
-
-function MoviesCard() {
+function MoviesCard(props) {
+    const buttonValue = props.isSaved ?
+        {
+            class: 'card__delete',
+            label: 'Удалить'
+        }
+        :
+        {
+            class: 'card__like ' + (props.like ? 'card__like_checked' : ''),
+            label: 'Нравится'
+        };
     return (
         <article className="card">
-            <img className="card__image" src={photo} alt=""/>
+            <img className="card__image" src={props.image} alt=""/>
             <div className="card__footer">
                 <div>
-                    <h2 className="card__title">33 слова о дизайне</h2>
-                    <span className="card__duration">1ч42м</span>
+                    <h2 className="card__title">{props.title}</h2>
+                    <span className="card__duration">{props.duration}</span>
                 </div>
-                <button className="card__like" type="button" aria-label="Нравится"></button>
-                <button className="card__delete" type="button" aria-label="Удалить"></button>
+                <button className={buttonValue.class} type="button" aria-label={buttonValue.label}></button>
             </div>
         </article>
     );

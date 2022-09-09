@@ -1,12 +1,21 @@
 import MoviesCard from "../MoviesCard/MoviesCard.jsx";
 import './MoviesCardList.css'
 
-function MoviesCardList() {
+function MoviesCardList(props) {
+
     return (
         <div className="cards">
-            <MoviesCard/>
+            {(props.cards || []).map((card, i) => (
+                <MoviesCard
+                    key={i}
+                    image={ card.image }
+                    duration={ card.duration }
+                    title={ card.title }
+                    like={ card.like }
+                    isSaved={props.isSaved}
+                />
+            ))}
         </div>
-
     );
 }
 

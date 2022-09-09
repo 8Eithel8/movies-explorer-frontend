@@ -21,8 +21,8 @@
 .card__image {
     width: 270px;
     height: 151px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
     object-fit: cover;
 }
 

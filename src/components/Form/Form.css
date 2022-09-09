@@ -1,31 +1,4 @@
-/*TODO перенести в правильный файл auth*/
-.auth {
-    height: 100vh;
-    max-width: 396px;
-    margin: 0 auto;
-    padding: 70px 0 0 0;
-    box-sizing: border-box;
-}
-
-@media (max-width: 1023px) {
-    .auth {
-        padding-top: 6px;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-@media (max-width: 767px) {
-    .auth {
-        max-width: 260px;
-        padding: 56px 0 30px 0;
-        justify-content: flex-start;
-    }
-}
-
-.auth__form {
+.form {
     min-height: 379px;
     display: flex;
     flex-direction: column;
@@ -34,19 +7,19 @@
 }
 
 @media (max-width: 767px) {
-    .auth__form {
+    .form {
         flex-grow: 1;
     }
 }
 
-.auth__container {
+.form__container {
     display: flex;
     flex-direction: column;
     gap: 24px;
     justify-content: space-between;
 }
 
-.auth__label {
+.form__label {
     display: flex;
     flex-direction: column;
     font-family: 'Inter', 'Arial', sans-serif;
@@ -57,7 +30,7 @@
     color: #8B8B8B;
 }
 
-.auth__field {
+.form__field {
     background: transparent;
     border: none;
     border-bottom: 1px solid #424242;
@@ -70,12 +43,12 @@
     color: #FFFFFF;
 }
 
-.auth__field:focus {
+.form__field:focus {
     outline: none;
     border-bottom: 1px solid #4285F4;
 }
 
-.auth__error {
+.form__error {
     font-family: 'Inter', 'Arial', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -85,7 +58,7 @@
     margin: 8px 0 0 0;
 }
 
-.auth__button {
+.form__button {
     width: 100%;
     background: #4285F4;
     border-radius: 3px;
@@ -101,13 +74,13 @@
 }
 
 @media (max-width: 767px) {
-    .auth__button {
+    .form__button {
         font-size: 12px;
         line-height: 15px;
     }
 }
 
-.auth__text {
+.form__text {
     font-family: 'Inter', 'Arial', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -118,19 +91,19 @@
     margin: 14px 0 0 0;
 }
 
-.auth__text_color {
+.form__text_color {
     color: #4285F4;
     text-decoration: none;
     padding: 0 0 0 6px;
 }
 
 @media (max-width: 767px) {
-    .auth__text {
+    .form__text {
         font-size: 12px;
         line-height: 15px;
     }
 }
 
-.auth-hidden {
+.form-hidden {
     display: none;
 }

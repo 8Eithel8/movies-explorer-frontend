@@ -9,7 +9,6 @@ import Profile from "../Profile/Profile.jsx";
 import Movies from "../Movies/Movies.jsx";
 import SavedMovies from "../SavedMovies/SavedMovies.jsx";
 
-
 function App() {
   return (
     <div className="App">

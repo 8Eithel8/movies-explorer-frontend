@@ -3,28 +3,28 @@ import {Link} from "react-router-dom";
 
 function Form() {
     return (
-        <form action="" className="auth__form" name="auth-form">
-            <div className="auth__container">
-                <label className="auth__label" htmlFor="name">
+        <form action="" className="form" name="form-auth">
+            <div className="form__container">
+                <label className="form__label" htmlFor="name">
                     Имя
-                    <input className="auth__field" type="text" name="name" id="name" value="Анастасия"
+                    <input className="form__field" type="text" name="name" id="name" value="Анастасия"
                            required/>
-                    {/*<span class="auth-form__error name-error">Что-то пошло не так...</span>*/}
+                    {/*<span class="form-form__error name-error">Что-то пошло не так...</span>*/}
                 </label>
-                <label className="auth__label" htmlFor="email">
+                <label className="form__label" htmlFor="email">
                     E-mail
-                    <input className="auth__field" type="email" name="email" id="email"
+                    <input className="form__field" type="email" name="email" id="email"
                            value="pochta@ya.ru" required/>
-                    {/*<span class="auth-form__error name-error">Что-то пошло не так...</span>*/}
+                    {/*<span class="form-form__error name-error">Что-то пошло не так...</span>*/}
                 </label>
-                <label className="auth__label" htmlFor="pass">
+                <label className="form__label" htmlFor="pass">
                     Пароль
-                    <input className="auth__field error" type="password" name="email" id="pass"
+                    <input className="form__field error" type="password" name="email" id="pass"
                            value="pochta@ya.ru" required/>
-                    <span className="auth__error name-error">Что-то пошло не так...</span>
+                    <span className="form__error name-error">Что-то пошло не так...</span>
                 </label>
             </div>
-            <button className="auth__button" type="submit"
+            <button className="form__button" type="submit"
                     aria-label="Редактировать">Зарегистрироваться
             </button>
         </form>

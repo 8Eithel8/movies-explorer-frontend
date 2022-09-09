@@ -2,7 +2,7 @@
     max-width: 1140px;
     margin: 0 auto;
     padding: 0 30px;
-    height: calc(100vh - 74px - 150px);
+    flex-grow: 1;
 }
 
 @media (max-width: 1023px) {
@@ -15,7 +15,6 @@
     .movies {
         max-width: 300px;
         padding: 0 10px;
-        height: calc(100vh - 74px - 224px);
     }
 }
 

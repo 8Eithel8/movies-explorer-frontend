@@ -5,7 +5,9 @@
   background-color: #202020;
   color: white;
   min-width: 320px;
-  height: 100%;
+  min-height: 100vh;
   position: relative;
-  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

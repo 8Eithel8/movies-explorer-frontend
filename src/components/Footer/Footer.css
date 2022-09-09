@@ -1,19 +1,19 @@
 .footer {
-    max-width: 1140px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 58px 0 19px 0;
+    padding: 58px 70px 19px 70px;
 }
 
 @media (max-width: 1023px) {
     .footer {
-        max-width: 768px;
         padding: 58px 30px 19px 30px;
     }
 }
 
 @media (max-width: 767px) {
     .footer {
-        max-width: 320px;
         padding: 60px 10px 10px 10px;
     }
 }

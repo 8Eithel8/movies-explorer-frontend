@@ -1,7 +1,7 @@
 import './Portfolio.css';
 import arrow from "../../images/arrow-link.svg";
 import {Link} from "react-router-dom";
-// TODO Ховер на линки
+
 function Portfolio() {
     return (
         <section className="portfolio">

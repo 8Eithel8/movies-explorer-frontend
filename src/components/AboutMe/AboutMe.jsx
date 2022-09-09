@@ -15,7 +15,7 @@ function AboutMe() {
                         Свободное время провожу на природе в обнимку с фотоаппаратом или за какой-нибудь
                         захватывающей экономической настольной игрй в компании друзей.
                     </p>
-                    <Link href="https://github.com/8Eithel8" className="info__link">Github</Link>
+                    <Link href="https://github.com/8Eithel8" className="info__link link">Github</Link>
                 </div>
                 <img className="info__photo" src={photo} alt="Фото Анастасии"/>
             </div>

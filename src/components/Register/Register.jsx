@@ -9,7 +9,7 @@ function Register() {
             <h1 className="title title-page">Добро пожаловать!</h1>
             <Form/>
             <p className="auth__text">Уже зарегистрированы?
-                <Link className="auth__text auth__text_color" href="#">Войти</Link>
+                <Link className="auth__text auth__text_color link" href="#">Войти</Link>
             </p>
             {/*<Link to="/sign-in" className="auth-form__text"> Войти</Link>*/}
         </section>

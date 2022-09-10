@@ -1,4 +1,5 @@
 import './Profile.css';
+import {Link} from "react-router-dom";
 
 function Profile() {
     return (
@@ -25,9 +26,9 @@ function Profile() {
                     <button className="profile-form__button profile-form__button_edit" type="submit"
                             aria-label="Редактировать">Редактировать
                     </button>
-                    <button className="profile-form__button profile-form__button_logout" type="button"
-                            aria-label="Выйти из аккаунта">Выйти из аккаунта
-                    </button>
+                    <Link className="profile-form__button profile-form__button_logout" type="button"
+                            aria-label="Выйти из аккаунта" to="/signin">Выйти из аккаунта
+                    </Link>
                 </div>
             </form>
         </main>

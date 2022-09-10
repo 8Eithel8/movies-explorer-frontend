@@ -12,13 +12,13 @@
 @media (max-width: 1023px) {
     .promo {
         margin-top: -94px;
-        padding: 393px 0 70px 0;
+        padding: 392px 0 69px 0;
     }
 }
 
 @media (max-width: 767px) {
     .promo {
-        padding: 277px 0 40px 0;
+        padding: 274px 0 40px 0;
     }
 }
 

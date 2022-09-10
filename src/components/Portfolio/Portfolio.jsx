@@ -13,7 +13,7 @@ function Portfolio() {
                        rel="noreferrer"
                     >
                         <p className="portfolio__link-text">Статичный сайт</p>
-                        <img src={arrow} alt="стрелка" className="portfolio__link-icon link"/>
+                        <div className="portfolio__link-icon link"></div>
                     </a>
                 </li>
                 <li className="portfolio__item">
@@ -23,7 +23,7 @@ function Portfolio() {
                        rel="noreferrer"
                     >
                         <p className="portfolio__link-text">Адаптивный сайт</p>
-                        <img src={arrow} alt="стрелка" className="portfolio__link-icon link"/>
+                        <div className="portfolio__link-icon link"></div>
                     </a>
                 </li>
                 <li className="portfolio__item">
@@ -33,7 +33,7 @@ function Portfolio() {
                        rel="noreferrer"
                     >
                         <p className="portfolio__link-text">Одностраничное приложение</p>
-                        <img src={arrow} alt="стрелка" className="portfolio__link-icon link"/>
+                        <div className="portfolio__link-icon link"></div>
                     </a>
                 </li>
             </ul>

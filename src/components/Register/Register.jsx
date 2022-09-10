@@ -1,4 +1,3 @@
-import {Link} from "react-router-dom";
 import Logo from "../Logo/Logo.jsx";
 import Form from "../Form/Form.jsx";
 
@@ -7,7 +6,13 @@ function Register() {
         <main className="auth">
             <Logo/>
             <h1 className="title title-page">Добро пожаловать!</h1>
-            <Form/>
+            <Form
+                isShowFieldName={true}
+                buttonText='Зарегистрироваться'
+                questionText='Уже зарегистрированы?'
+                linkText='Войти'
+                linkPath='/signin'
+            />
         </main>
     );
 }

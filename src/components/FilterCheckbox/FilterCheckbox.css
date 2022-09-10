@@ -47,7 +47,7 @@
     height: 20px;
     background-color: #222;
     border-radius: 50px;
-    /*z-index: 0;*/
+    z-index: 0;
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
 }
 
@@ -65,5 +65,5 @@
     .filter-group__text {
         font-size: 11px;
         line-height: 18px;
-     }
+    }
 }

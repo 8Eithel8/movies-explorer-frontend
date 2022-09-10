@@ -4,7 +4,6 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList.jsx";
 import React from "react";
 import {cards} from "../../utils/cards"
 
-
 function Movies() {
     return (
         <main className="movies">

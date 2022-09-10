@@ -94,8 +94,6 @@
 .card__delete {
     width: 16px;
     height: 16px;
-    background: url("../../images/close-btn.svg");
-    background-repeat: no-repeat;
+    background: url("../../images/close-btn.svg") no-repeat center;
     border: none;
-    background-position: center;
 }

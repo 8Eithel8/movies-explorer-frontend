@@ -24,7 +24,7 @@ function App() {
 
             <Route path="*">
 
-                <Header isLoggedIn={false}/>
+                <Header isLoggedIn={true}/>
 
                 <Switch>
                     <Route path="/profile">

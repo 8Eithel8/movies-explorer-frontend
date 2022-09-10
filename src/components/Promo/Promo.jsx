@@ -1,4 +1,5 @@
 import './Promo.css';
+import React from "react";
 
 function Promo() {
     return (

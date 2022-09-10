@@ -4,8 +4,6 @@ import Navigation from "../Navigation/Navigation.jsx";
 import Logo from "../Logo/Logo.jsx";
 import {Link} from "react-router-dom";
 
-// import {Link, Route, Switch} from "react-router-dom";
-
 function Header(props) {
 
     const menu = props.isLoggedIn ?
@@ -28,7 +26,6 @@ function Header(props) {
             { menu }
         </header>
     );
-
 }
 
 export default Header;

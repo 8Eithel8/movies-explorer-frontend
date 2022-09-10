@@ -1,5 +1,6 @@
 import MoviesCard from "../MoviesCard/MoviesCard.jsx";
-import './MoviesCardList.css'
+import './MoviesCardList.css';
+import React from "react";
 
 function MoviesCardList(props) {
 

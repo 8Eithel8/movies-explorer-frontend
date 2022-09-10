@@ -1,5 +1,4 @@
 import './Portfolio.css';
-import arrow from "../../images/arrow-link.svg";
 
 function Portfolio() {
     return (

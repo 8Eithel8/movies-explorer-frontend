@@ -1,5 +1,6 @@
 import Logo from "../Logo/Logo.jsx";
 import Form from "../Form/Form.jsx";
+import React from "react";
 
 function Register() {
     return (

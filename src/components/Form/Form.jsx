@@ -10,14 +10,12 @@ function Form(props) {
                         Имя
                         <input className="form__field" type="text" name="name" id="name" defaultValue="Анастасия"
                                required/>
-                        {/*<span class="form__error name-error">Что-то пошло не так...</span>*/}
                     </label>
                 }
                 <label className="form__label" htmlFor="email">
                     E-mail
                     <input className="form__field" type="email" name="email" id="email"
                            defaultValue="pochta@ya.ru" required/>
-                    {/*<span class="form__error name-error">Что-то пошло не так...</span>*/}
                 </label>
                 <label className="form__label" htmlFor="pass">
                     Пароль

@@ -37,6 +37,11 @@
     }
 }
 
+.header__menu_nav {
+    flex-grow: 1;
+    gap: 44px;
+}
+
 .header__button-signup {
     text-decoration: none;
     opacity: 1;
@@ -97,6 +102,8 @@
 
 #header__toggle {
     opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 #header__toggle:checked ~ .header__button-burger > span {
@@ -160,8 +167,4 @@
         content: '';
         top: 9px;
     }
-}
-
-.header__menu_hidden {
-    display: none;
 }

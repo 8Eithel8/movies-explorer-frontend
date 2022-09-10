@@ -6,7 +6,7 @@ import React from "react";
 function Logo() {
     return (
         <Link to='/' className="link">
-            <img className="logo logo_form" src={logo} alt="Логотип"/>
+            <img className="logo" src={logo} alt="Логотип"/>
         </Link>
     );
 }

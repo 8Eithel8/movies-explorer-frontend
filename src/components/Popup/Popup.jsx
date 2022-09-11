@@ -12,7 +12,7 @@ function Popup() {
                         Страница не найдена
                     </p>
                 </div>
-                <Link className="popup__button link" href="#">Назад</Link>
+                <Link className="popup__button link" to='/'>Назад</Link>
             </div>
         </div>
     );

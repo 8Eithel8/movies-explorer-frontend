@@ -66,6 +66,7 @@
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
     border-radius: 9px;
     position: relative;
+    width: 90%;
 }
 
 .search__field {
@@ -76,10 +77,10 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 20px;
-    width: 90%;
     color: #8B8B8B;
     margin-left: 35px;
     outline: none;
+    width: 90%;
 }
 
 @media (max-width: 767px) {
@@ -88,6 +89,10 @@
         line-height: 20px;
         margin-left: 0;
     }
+}
+
+.search__field:focus {
+    background: #F5F5F5;
 }
 
 .search__icon {

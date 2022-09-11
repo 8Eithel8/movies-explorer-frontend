@@ -8,19 +8,43 @@ function Form(props) {
                 {props.isShowFieldName &&
                     <label className="form__label" htmlFor="name">
                         Имя
-                        <input className="form__field" type="text" name="name" id="name" defaultValue="Анастасия"
-                               required/>
+                        <input
+                            className="form__field"
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="Имя"
+                            required
+                            minLength="2"
+                            maxLength="40"
+                        />
                     </label>
                 }
                 <label className="form__label" htmlFor="email">
                     E-mail
-                    <input className="form__field" type="email" name="email" id="email"
-                           defaultValue="pochta@ya.ru" required/>
+                    <input
+                        className="form__field"
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="E-mail"
+                        required
+                        minLength="2"
+                        maxLength="40"
+                    />
                 </label>
                 <label className="form__label" htmlFor="pass">
                     Пароль
-                    <input className="form__field error" type="password" name="email" id="pass"
-                           defaultValue="pochta@ya.ru" required/>
+                    <input
+                        className="form__field error"
+                        type="password"
+                        name="pass"
+                        id="pass"
+                        placeholder="Ваш пароль"
+                        required
+                        minLength="2"
+                        maxLength="40"
+                    />
                     <span className="form__error name-error">Что-то пошло не так...</span>
                 </label>
             </div>

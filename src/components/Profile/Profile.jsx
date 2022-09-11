@@ -12,15 +12,33 @@ function Profile() {
                         <label className="profile-form__label  profile-text-field" htmlFor="name">
                             Имя
                         </label>
-                        <input className="profile-form__field  profile-text-field" type="text" name="name" id="name"
-                               defaultValue="Анастасия" required/>
+                        <input
+                            className="profile-form__field  profile-text-field"
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="Имя"
+                            value="Анастасия"
+                            required
+                            minLength="2"
+                            maxLength="40"
+                        />
                     </fieldset>
                     <fieldset className="profile-form__set">
                         <label className="profile-form__label  profile-text-field" htmlFor="email">
                             E-mail
                         </label>
-                        <input className="profile-form__field  profile-text-field" type="text" name="email" id="email"
-                               defaultValue="pochta@ya.ru" required/>
+                        <input
+                            className="profile-form__field  profile-text-field"
+                            type="text"
+                            name="email"
+                            id="email"
+                            placeholder="E-mail"
+                            value="pochta@ya.ru"
+                            required
+                            minLength="2"
+                            maxLength="40"
+                        />
                     </fieldset>
                 </div>
                 <div className="profile-form__buttons">

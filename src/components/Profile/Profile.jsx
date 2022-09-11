@@ -18,7 +18,7 @@ function Profile() {
                             name="name"
                             id="name"
                             placeholder="Имя"
-                            value="Анастасия"
+                            defaultValue="Анастасия"
                             required
                             minLength="2"
                             maxLength="40"
@@ -34,7 +34,7 @@ function Profile() {
                             name="email"
                             id="email"
                             placeholder="E-mail"
-                            value="pochta@ya.ru"
+                            defaultValue="pochta@ya.ru"
                             required
                             minLength="2"
                             maxLength="40"

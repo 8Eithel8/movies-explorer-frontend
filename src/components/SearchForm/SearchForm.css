@@ -21,7 +21,6 @@
 .search__container {
     box-sizing: border-box;
     padding: 15px 30px 15px 25px;
-    background: #222222;
     border-radius: 9px;
     display: flex;
     justify-content: space-between;
@@ -40,6 +39,7 @@
         flex-direction: column;
         align-items: center;
         box-shadow: none;
+        background: #222222;
     }
 }
 
@@ -51,6 +51,7 @@
     border-right: 1px solid #505050;
     flex-grow: 1;
     padding: 0 19px 0 0;
+    background: #222222;
 }
 
 @media (max-width: 767px) {
@@ -58,7 +59,10 @@
         width: 100%;
         min-height: 44px;
         border: none;
-        padding: 0 0 48px 0;
+        padding: 15px;
+        margin-bottom: 48px;
+        box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+        border-radius: 9px;
     }
 }
 

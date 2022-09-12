@@ -2,7 +2,7 @@ import './Profile.css';
 import {Link} from "react-router-dom";
 import React from "react";
 
-function Profile() {
+function Profile(props) {
     return (
         <main className="profile">
             <h1 className="profile-title title-page">Привет, Анастасия!</h1>
@@ -45,9 +45,9 @@ function Profile() {
                     <button className="profile-form__button profile-form__button_edit" type="submit"
                             aria-label="Редактировать">Редактировать
                     </button>
-                    <Link className="profile-form__button profile-form__button_logout" type="button"
-                            aria-label="Выйти из аккаунта" to="/signin">Выйти из аккаунта
-                    </Link>
+                    <button className="profile-form__button profile-form__button_logout" type="button"
+                            aria-label="Выйти из аккаунта" onClick={props.onSignout}>Выйти из аккаунта
+                    </button>
                 </div>
             </form>
         </main>

@@ -57,6 +57,13 @@ function App() {
             });
     }
 
+    //выход из аккаунта
+    function onSignOut(){
+        setIsLoggedIn(false);
+        localStorage.removeItem('jwt');
+        history.push('/');
+    }
+
   return (
     <div className="App">
 
@@ -75,7 +82,7 @@ function App() {
 
                 <Switch>
                     <Route path="/profile">
-                        <Profile/>
+                        <Profile onSignout={onSignOut}/>
                     </Route>
 
                     <Route path="*">

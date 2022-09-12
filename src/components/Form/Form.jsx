@@ -1,7 +1,6 @@
 import './Form.css';
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import React from "react";
-import {register} from "../../utils/MainApi.js";
 
 function Form(props) {
     //обявление состояние полей формы

@@ -18,16 +18,16 @@ export const register = (userData) => {
     }).then(responseCheck);
 };
 
-// export const authorize = (email, password) => {
-//     return fetch(`${BASE_URL}/signin`, {
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({ email, password })
-//     }).then(responseCheck);
-// };
+export const authorize = (userData) => {
+    return fetch(`${BASE_URL}/signin`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    }).then(responseCheck);
+};
 //
 // export const getData = (token) => {
 //     return fetch(`${BASE_URL}/users/me`, {

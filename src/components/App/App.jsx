@@ -8,24 +8,53 @@ import Login from "../Login/Login.jsx";
 import Profile from "../Profile/Profile.jsx";
 import Movies from "../Movies/Movies.jsx";
 import SavedMovies from "../SavedMovies/SavedMovies.jsx";
-import {register} from "../../utils/MainApi.js";
-import {CONFLICT_ERR_CODE, SERVER_ERR_MSG, USER_EXISTS_ERR_MSG} from "../../utils/constants.js";
+import {authorize, register} from "../../utils/MainApi.js";
+import React from "react";
+
+import {
+    CONFLICT_ERR_CODE,
+    LOGIN_ERR_MSG,
+    SERVER_ERR_MSG,
+    UNAUTH_ERR_CODE,
+    USER_EXISTS_ERR_MSG
+} from "../../utils/constants.js";
 
 function App() {
     const history = useHistory()
+
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
     // регистрация пользователя
     function onSignUp(userData, setErrorSubmit){
         register(userData).then((res) => {
             console.log('Вы успешно зарегистрировались!');
             history.push('/signin');
-        }).catch((err) => {
-            if (err === CONFLICT_ERR_CODE) {
+        }).catch((errCode) => {
+            if (errCode === CONFLICT_ERR_CODE) {
                 setErrorSubmit(USER_EXISTS_ERR_MSG)
             } else {
                 setErrorSubmit(SERVER_ERR_MSG);
             }
         });
+    }
+
+    //вход пользователя
+    function onSignIn(userData, setErrorSubmit) {
+        authorize(userData)
+            .then((data) => {
+                    localStorage.setItem('jwt', data.token);
+                    setIsLoggedIn(true);
+                    // setUserLogin(email);
+                    history.push('/movies');
+                }
+            )
+            .catch((errCode) => {
+                if (errCode === UNAUTH_ERR_CODE) {
+                    setErrorSubmit(LOGIN_ERR_MSG)
+                } else {
+                    setErrorSubmit(SERVER_ERR_MSG);
+                }
+            });
     }
 
   return (
@@ -37,12 +66,12 @@ function App() {
             </Route>
 
             <Route path="/signin">
-                <Login/>
+                <Login onSubmit={onSignIn}/>
             </Route>
 
             <Route path="*">
 
-                <Header isLoggedIn={true}/>
+                <Header isLoggedIn={isLoggedIn}/>
 
                 <Switch>
                     <Route path="/profile">

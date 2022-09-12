@@ -8,6 +8,7 @@ function Form(props) {
     const [values, setValues] = React.useState({});
     const [errors, setErrors] = React.useState({});
     const [isValid, setIsValid] = React.useState(false);
+    const [errorSubmit, setErrorSubmit] = React.useState('');
 
     //отслеживает изменение поля и обновляет состояние формы
     const handleChange = (event) => {
@@ -16,29 +17,13 @@ function Form(props) {
         const value = target.value;
         setValues({...values, [name]: value});
         setErrors({...errors, [name]: target.validationMessage });
+        setErrorSubmit('')
         setIsValid(target.closest("form").checkValidity());
     };
-    const history = useHistory()
-
-    // регистрация пользователя
-    function onSignUp(userData){
-        register(userData).then((res) => {
-            // setInfoToolImage(iconReg);
-            console.log('Вы успешно зарегистрировались!');
-            // setInfoToolMessage('Вы успешно зарегистрировались!');
-            // setIsInfoToolTipOpen(true);
-            history.push('/signin');
-        }).catch(() => {
-            // setInfoToolImage(iconErr);
-            console.log('Что-то пошло не так! Попробуйте ещё раз.');
-            // setInfoToolMessage('Что-то пошло не так! Попробуйте ещё раз.');
-            // setIsInfoToolTipOpen(true);
-        });
-    }
 
     const onSubmit = (evt) => {
         evt.preventDefault();
-        onSignUp(values);
+        props.onSubmit(values, setErrorSubmit);
     }
 
     return (
@@ -94,6 +79,7 @@ function Form(props) {
                 </label>
             </div>
             <div>
+                <p className="form__error name-error">{errorSubmit || ''}</p>
                 <button
                     className="form__button"
                     type="submit"

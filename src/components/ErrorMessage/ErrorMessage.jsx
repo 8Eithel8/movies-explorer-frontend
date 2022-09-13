@@ -1,8 +1,9 @@
-import './Popup.css';
-import {Link} from "react-router-dom";
+import './ErrorMessage.css';
 import React from "react";
 
-function Popup() {
+function ErrorMessage(props) {
+    const backHandler = () => props.history.goBack();
+
     return (
         <div className="popup">
             <div className="popup__container">
@@ -12,10 +13,10 @@ function Popup() {
                         Страница не найдена
                     </p>
                 </div>
-                <Link className="popup__button link" to='/'>Назад</Link>
+                <button className="popup__button link" onClick={backHandler}>Назад</button>
             </div>
         </div>
     );
 }
 
-export default Popup;
+export default ErrorMessage;

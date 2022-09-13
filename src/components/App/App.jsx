@@ -2,7 +2,7 @@ import './App.css';
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import Footer from "../Footer/Footer.jsx";
-import {Route, Switch, useHistory} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import Register from "../Register/Register.jsx";
 import Login from "../Login/Login.jsx";
 import Profile from "../Profile/Profile.jsx";
@@ -10,9 +10,12 @@ import Movies from "../Movies/Movies.jsx";
 import SavedMovies from "../SavedMovies/SavedMovies.jsx";
 import {authorize, getData, register} from "../../utils/MainApi.js";
 import React, {useEffect} from "react";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
+import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx";
 
 import {
-    CONFLICT_ERR_CODE,
+    BAD_REQ_ERR_CODE,
+    CONFLICT_ERR_CODE, FIELDS_ERR_MSG,
     LOGIN_ERR_MSG,
     SERVER_ERR_MSG,
     UNAUTH_ERR_CODE,
@@ -24,21 +27,36 @@ function App() {
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-    // регистрация пользователя
-    function onSignUp(userData, setErrorSubmit){
-        register(userData).then((res) => {
-            return onSignIn(userData, setErrorSubmit);
-        }).catch((errCode) => {
-            if (errCode === CONFLICT_ERR_CODE) {
-                setErrorSubmit(USER_EXISTS_ERR_MSG)
-            } else {
+    function authErrorHandler(errCode, setErrorSubmit) {
+        switch (errCode) {
+            case CONFLICT_ERR_CODE:
+                setErrorSubmit(USER_EXISTS_ERR_MSG);
+                break;
+            case BAD_REQ_ERR_CODE:
+                setErrorSubmit(FIELDS_ERR_MSG);
+                break;
+            case UNAUTH_ERR_CODE:
+                setErrorSubmit(LOGIN_ERR_MSG);
+                break;
+            default:
                 setErrorSubmit(SERVER_ERR_MSG);
-            }
-        });
+        }
+    }
+
+    // регистрация пользователя
+    function onSignUp(userData, setErrorSubmit, setIsFieldDisabled){
+        setIsFieldDisabled(true);
+        register(userData)
+            .then((res) => onSignIn(userData, setErrorSubmit))
+            .catch((errCode) => {
+                authErrorHandler(errCode, setErrorSubmit);
+                setIsFieldDisabled(false);
+            });
     }
 
     //вход пользователя
-    function onSignIn(userData, setErrorSubmit) {
+    function onSignIn(userData, setErrorSubmit, setIsFieldDisabled) {
+        setIsFieldDisabled(true);
         authorize(userData)
             .then((data) => {
                     localStorage.setItem('jwt', data.token);
@@ -47,12 +65,10 @@ function App() {
                 }
             )
             .catch((errCode) => {
-                if (errCode === UNAUTH_ERR_CODE) {
-                    setErrorSubmit(LOGIN_ERR_MSG)
-                } else {
-                    setErrorSubmit(SERVER_ERR_MSG);
-                }
+                authErrorHandler(errCode, setErrorSubmit);
+                setIsFieldDisabled(false)
             });
+
     }
 
     useEffect( () => {
@@ -66,7 +82,6 @@ function App() {
                     // авторизуем пользователя
                     setIsLoggedIn(true);
                     // setUserLogin(res.email);
-                    history.push('/');
                 }
                 else {
                     setIsLoggedIn(false);
@@ -89,22 +104,31 @@ function App() {
     <div className="App">
 
         <Switch>
-            <Route path="/signup">
-                <Register onSubmit={onSignUp}/>
-            </Route>
-
-            <Route path="/signin">
-                <Login onSubmit={onSignIn}/>
-            </Route>
+            <ProtectedRoute
+                path="/signup"
+                component={Register}
+                onSubmit={onSignUp}
+                isLoggedIn={isLoggedIn}
+                allowed={!isLoggedIn}
+            />
+            <ProtectedRoute
+                path="/signin"
+                component={Login}
+                onSubmit={onSignIn}
+                isLoggedIn={isLoggedIn}
+                allowed={!isLoggedIn}
+            />
 
             <Route path="*">
-
                 <Header isLoggedIn={isLoggedIn}/>
 
                 <Switch>
-                    <Route path="/profile">
-                        <Profile onSignout={onSignOut}/>
-                    </Route>
+                    <ProtectedRoute
+                        path="/profile"
+                        component={Profile}
+                        onSignout={onSignOut}
+                        allowed={isLoggedIn}
+                    />
 
                     <Route path="*">
                         <Switch>
@@ -112,14 +136,24 @@ function App() {
                                 <Main/>
                             </Route>
 
-                            <Route path="/movies">
-                                <Movies/>
-                            </Route>
+                            <ProtectedRoute
+                                path="/movies"
+                                component={Movies}
+                                isLoggedIn={isLoggedIn}
+                                allowed={isLoggedIn}
+                            />
 
-                            <Route path="/saved-movies">
-                                <SavedMovies/>
+                            <ProtectedRoute
+                                path="/saved-movies"
+                                component={SavedMovies}
+                                isLoggedIn={isLoggedIn}
+                                allowed={isLoggedIn}
+                            />
+                            <Route path="*">
+                                <ErrorMessage history={history}/>
                             </Route>
                         </Switch>
+
                         <Footer/>
                     </Route>
                 </Switch>

@@ -1,37 +1,28 @@
 import './Form.css';
 import {Link} from "react-router-dom";
 import React from "react";
+import {useFormWithValidation} from "../../utils/FormValidator.js";
 
 function Form(props) {
-    //обявление состояние полей формы
-    const [values, setValues] = React.useState({});
-    const [errors, setErrors] = React.useState({});
-    const [isValid, setIsValid] = React.useState(false);
-    const [errorSubmit, setErrorSubmit] = React.useState('');
 
-    //отслеживает изменение поля и обновляет состояние формы
-    const handleChange = (event) => {
-        const target = event.target;
-        const name = target.name;
-        const value = target.value;
-        setValues({...values, [name]: value});
-        setErrors({...errors, [name]: target.validationMessage });
-        setErrorSubmit('')
-        setIsValid(target.closest("form").checkValidity());
-    };
+    const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+    const [errorSubmit, setErrorSubmit] = React.useState('');
+    const [isFieldDisabled, setIsFieldDisabled] = React.useState(false);
+
 
     const onSubmit = (evt) => {
         evt.preventDefault();
-        props.onSubmit(values, setErrorSubmit);
+        props.onSubmit(values, setErrorSubmit, setIsFieldDisabled)
     }
 
     return (
-        <form className="form" name="form-auth" onSubmit={onSubmit}>
+        <form className="form" name="form-auth" onSubmit={ onSubmit }>
             <div className="form__container">
                 {props.isShowFieldName &&
                     <label className="form__label" htmlFor="name">
                         Имя
                         <input
+                            disabled={ isFieldDisabled }
                             className="form__field"
                             type="text"
                             name="name"
@@ -41,14 +32,15 @@ function Form(props) {
                             minLength="2"
                             maxLength="40"
                             pattern="[A-Za-zА-Яа-яЁё\s-]+"
-                            onChange={handleChange}
+                            onChange={ handleChange }
                         />
-                        <span className="form__error name-error">{errors.name || ''}</span>
+                        <span className="form__error name-error">{ errors.name || '' }</span>
                     </label>
                 }
                 <label className="form__label" htmlFor="email">
                     E-mail
                     <input
+                        disabled={isFieldDisabled}
                         className="form__field"
                         type="email"
                         name="email"
@@ -57,13 +49,14 @@ function Form(props) {
                         required
                         minLength="2"
                         maxLength="40"
-                        onChange={handleChange}
+                        onChange={ handleChange }
                     />
-                    <span className="form__error name-error">{errors.email || ''}</span>
+                    <span className="form__error name-error">{ errors.email || '' }</span>
                 </label>
                 <label className="form__label" htmlFor="password">
                     Пароль
                     <input
+                        disabled={isFieldDisabled}
                         className="form__field"
                         type="password"
                         name="password"
@@ -72,23 +65,23 @@ function Form(props) {
                         required
                         minLength="8"
                         maxLength="40"
-                        onChange={handleChange}
+                        onChange={ handleChange }
                     />
-                    <span className="form__error name-error">{errors.password || ''}</span>
+                    <span className="form__error name-error">{ errors.password || '' }</span>
                 </label>
             </div>
             <div>
-                <p className="form__error name-error">{errorSubmit || ''}</p>
+                <p className="form__error name-error">{ errorSubmit || '' }</p>
                 <button
                     className="form__button"
                     type="submit"
                     aria-label="Редактировать"
-                    disabled={!isValid}
+                    disabled={ isFieldDisabled || !isValid }
                 >
-                    {props.buttonText}
+                    { props.buttonText }
                 </button>
-                <p className="form__text">{props.questionText}
-                    <Link className="form__text form__text_color link"  to={props.linkPath}>{props.linkText}</Link>
+                <p className="form__text">{ props.questionText }
+                    <Link className="form__text form__text_color link"  to={ props.linkPath }>{ props.linkText }</Link>
                 </p>
             </div>
         </form>

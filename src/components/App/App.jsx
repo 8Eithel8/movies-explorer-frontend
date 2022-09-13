@@ -8,8 +8,8 @@ import Login from "../Login/Login.jsx";
 import Profile from "../Profile/Profile.jsx";
 import Movies from "../Movies/Movies.jsx";
 import SavedMovies from "../SavedMovies/SavedMovies.jsx";
-import {authorize, register} from "../../utils/MainApi.js";
-import React from "react";
+import {authorize, getData, register} from "../../utils/MainApi.js";
+import React, {useEffect} from "react";
 
 import {
     CONFLICT_ERR_CODE,
@@ -54,6 +54,29 @@ function App() {
                 }
             });
     }
+
+    useEffect( () => {
+        // если у пользователя есть токен в localStorage,
+        // эта функция проверит валидность токена
+        const jwt = localStorage.getItem('jwt');
+        if (jwt){
+            // проверим токен
+            getData(jwt).then((res) => {
+                if (res){
+                    // авторизуем пользователя
+                    setIsLoggedIn(true);
+                    // setUserLogin(res.email);
+                    history.push('/');
+                }
+                else {
+                    setIsLoggedIn(false);
+                    // setUserLogin('');
+                }
+            }).catch(
+                (err) => console.log('Error: ', err)
+            );
+        }
+    }, [])
 
     //выход из аккаунта
     function onSignOut(){

@@ -27,8 +27,7 @@ function App() {
     // регистрация пользователя
     function onSignUp(userData, setErrorSubmit){
         register(userData).then((res) => {
-            console.log('Вы успешно зарегистрировались!');
-            history.push('/signin');
+            return onSignIn(userData, setErrorSubmit);
         }).catch((errCode) => {
             if (errCode === CONFLICT_ERR_CODE) {
                 setErrorSubmit(USER_EXISTS_ERR_MSG)
@@ -44,7 +43,6 @@ function App() {
             .then((data) => {
                     localStorage.setItem('jwt', data.token);
                     setIsLoggedIn(true);
-                    // setUserLogin(email);
                     history.push('/movies');
                 }
             )

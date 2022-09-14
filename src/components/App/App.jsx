@@ -9,9 +9,10 @@ import Profile from "../Profile/Profile.jsx";
 import Movies from "../Movies/Movies.jsx";
 import SavedMovies from "../SavedMovies/SavedMovies.jsx";
 import {authorize, getData, register} from "../../utils/MainApi.js";
-import React, {useEffect} from "react";
+import React from "react";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext.js";
 
 import {
     BAD_REQ_ERR_CODE,
@@ -26,6 +27,7 @@ function App() {
     const history = useHistory()
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+    const [currentUser , setCurrentUser ] = React.useState({});
 
     function authErrorHandler(errCode, setErrorSubmit) {
         switch (errCode) {
@@ -62,26 +64,30 @@ function App() {
                     localStorage.setItem('jwt', data.token);
                     setIsLoggedIn(true);
                     history.push('/movies');
+                    getData(data.token).then((user) => {
+                        if (user) {
+                            setCurrentUser(user);
+                        }
+                    })
                 }
             )
             .catch((errCode) => {
                 authErrorHandler(errCode, setErrorSubmit);
                 setIsFieldDisabled(false)
             });
-
     }
 
-    useEffect( () => {
+    React.useEffect( () => {
         // если у пользователя есть токен в localStorage,
         // эта функция проверит валидность токена
         const jwt = localStorage.getItem('jwt');
         if (jwt){
             // проверим токен
-            getData(jwt).then((res) => {
-                if (res){
+            getData(jwt).then((user) => {
+                if (user){
                     // авторизуем пользователя
                     setIsLoggedIn(true);
-                    // setUserLogin(res.email);
+                    setCurrentUser(user);
                 }
                 else {
                     setIsLoggedIn(false);
@@ -102,64 +108,65 @@ function App() {
 
   return (
     <div className="App">
+        <CurrentUserContext.Provider value={currentUser}>
+            <Switch>
+                <ProtectedRoute
+                    path="/signup"
+                    component={Register}
+                    onSubmit={onSignUp}
+                    isLoggedIn={isLoggedIn}
+                    allowed={!isLoggedIn}
+                />
+                <ProtectedRoute
+                    path="/signin"
+                    component={Login}
+                    onSubmit={onSignIn}
+                    isLoggedIn={isLoggedIn}
+                    allowed={!isLoggedIn}
+                />
 
-        <Switch>
-            <ProtectedRoute
-                path="/signup"
-                component={Register}
-                onSubmit={onSignUp}
-                isLoggedIn={isLoggedIn}
-                allowed={!isLoggedIn}
-            />
-            <ProtectedRoute
-                path="/signin"
-                component={Login}
-                onSubmit={onSignIn}
-                isLoggedIn={isLoggedIn}
-                allowed={!isLoggedIn}
-            />
+                <Route path="*">
+                    <Header isLoggedIn={isLoggedIn}/>
 
-            <Route path="*">
-                <Header isLoggedIn={isLoggedIn}/>
+                    <Switch>
+                        <ProtectedRoute
+                            path="/profile"
+                            component={Profile}
+                            onSignout={onSignOut}
+                            allowed={isLoggedIn}
+                        />
 
-                <Switch>
-                    <ProtectedRoute
-                        path="/profile"
-                        component={Profile}
-                        onSignout={onSignOut}
-                        allowed={isLoggedIn}
-                    />
+                        <Route path="*">
+                            <Switch>
+                                <Route  exact path="/">
+                                    <Main/>
+                                </Route>
 
-                    <Route path="*">
-                        <Switch>
-                            <Route  exact path="/">
-                                <Main/>
-                            </Route>
+                                <ProtectedRoute
+                                    path="/movies"
+                                    component={Movies}
+                                    isLoggedIn={isLoggedIn}
+                                    allowed={isLoggedIn}
+                                />
 
-                            <ProtectedRoute
-                                path="/movies"
-                                component={Movies}
-                                isLoggedIn={isLoggedIn}
-                                allowed={isLoggedIn}
-                            />
+                                <ProtectedRoute
+                                    path="/saved-movies"
+                                    component={SavedMovies}
+                                    isLoggedIn={isLoggedIn}
+                                    allowed={isLoggedIn}
+                                />
+                                <Route path="*">
+                                    <ErrorMessage history={history}/>
+                                </Route>
+                            </Switch>
 
-                            <ProtectedRoute
-                                path="/saved-movies"
-                                component={SavedMovies}
-                                isLoggedIn={isLoggedIn}
-                                allowed={isLoggedIn}
-                            />
-                            <Route path="*">
-                                <ErrorMessage history={history}/>
-                            </Route>
-                        </Switch>
+                            <Footer/>
+                        </Route>
+                    </Switch>
 
-                        <Footer/>
-                    </Route>
-                </Switch>
-
-            </Route>
-        </Switch>
+                </Route>
+            </Switch>
+        </CurrentUserContext.Provider>
     </div>
   );
 }

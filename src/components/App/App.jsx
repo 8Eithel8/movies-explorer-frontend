@@ -8,7 +8,7 @@ import Login from "../Login/Login.jsx";
 import Profile from "../Profile/Profile.jsx";
 import Movies from "../Movies/Movies.jsx";
 import SavedMovies from "../SavedMovies/SavedMovies.jsx";
-import {authorize, getData, register} from "../../utils/MainApi.js";
+import {authorize, getData, register, updateData} from "../../utils/MainApi.js";
 import React from "react";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx";
@@ -18,7 +18,7 @@ import {
     BAD_REQ_ERR_CODE,
     CONFLICT_ERR_CODE, FIELDS_ERR_MSG,
     LOGIN_ERR_MSG,
-    SERVER_ERR_MSG,
+    SERVER_ERR_MSG, SUCCESS_UPDATE_MSG,
     UNAUTH_ERR_CODE,
     USER_EXISTS_ERR_MSG
 } from "../../utils/constants.js";
@@ -27,7 +27,7 @@ function App() {
     const history = useHistory()
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-    const [currentUser , setCurrentUser ] = React.useState({});
+    const [currentUser, setCurrentUser ] = React.useState({});
 
     function authErrorHandler(errCode, setErrorSubmit) {
         switch (errCode) {
@@ -106,6 +106,23 @@ function App() {
         history.push('/');
     }
 
+    function updateUserInfo(values, setMessage, setIsError, setIsFieldDisabled) {
+        setIsFieldDisabled(true);
+        updateData(values)
+            .then((data) => {
+                setCurrentUser(data);
+                setIsError(false);
+                setMessage(SUCCESS_UPDATE_MSG)
+                setIsFieldDisabled(false)
+                }
+            )
+            .catch(() => {
+                setIsError(true);
+                setMessage(SERVER_ERR_MSG)
+                setIsFieldDisabled(false)
+            });
+    }
+
   return (
     <div className="App">
         <CurrentUserContext.Provider value={currentUser}>
@@ -132,8 +149,9 @@ function App() {
                         <ProtectedRoute
                             path="/profile"
                             component={Profile}
-                            onSignout={onSignOut}
+                            onSubmit={updateUserInfo}
                             allowed={isLoggedIn}
+                            isLoggedIn={isLoggedIn}
                         />
 
                         <Route path="*">

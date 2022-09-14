@@ -7,19 +7,35 @@ function Profile(props) {
     const currentUser = React.useContext(CurrentUserContext);
     const { values, setValues, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
+    const [isFieldDisabled, setIsFieldDisabled] = React.useState(false);
+    const [message, setMessage] = React.useState('');
+    const [isError, setIsError] = React.useState(false);
+    const [isSame, setIsSame] = React.useState(true);
+
     React.useEffect(() => {
         setValues({
             name: currentUser.name,
             email: currentUser.email,
         })
-    }, [currentUser]);
+    }, []);
+
+    React.useEffect(() => setMessage(''), [values]);
+
+    React.useEffect(() => {
+        setIsSame(currentUser.name === values.name && currentUser.email === values.email)
+    }, [currentUser, values]);
+
+    const onSubmit = (evt) => {
+        evt.preventDefault();
+        props.onSubmit(values, setMessage, setIsError, setIsFieldDisabled)
+    }
 
     return (
         <main className="profile">
             <h1 className="profile-title title-page">Привет, {currentUser.name}!</h1>
-            <form action="" className="profile-form">
+            <form action="" className="profile-form" onSubmit={ onSubmit }>
                 <div>
-                    <span className="profile__error">{ errors.name || '' }</span>
+                    <span className="profile__message profile__message_error">{ errors.name || '' }</span>
                     <fieldset className="profile-form__set">
                         <label className="profile-form__label  profile-text-field" htmlFor="name">
                             Имя
@@ -33,9 +49,10 @@ function Profile(props) {
                             value={values.name ?? ""}
                             required
                             minLength="2"
-                            maxLength="40"
+                            maxLength="30"
                             pattern="[A-Za-zА-Яа-яЁё\s-]+"
                             onChange={ handleChange }
+                            disabled={isFieldDisabled}
                         />
                     </fieldset>
                     <fieldset className="profile-form__set">
@@ -51,17 +68,22 @@ function Profile(props) {
                             value={values.email ?? ""}
                             required
                             minLength="2"
-                            maxLength="40"
+                            maxLength="30"
                             onChange={ handleChange }
+                            disabled={isFieldDisabled}
                         />
                     </fieldset>
-                    <span className="profile__error">{ errors.email || '' }</span>
+                    <span className="profile__message profile__message_error">{ errors.email || '' }</span>
                 </div>
                 <div className="profile-form__buttons">
                     {/*<p className="form__error name-error">{ errorSubmit || '' }</p>*/}
-                    <p className="profile__error profile__success">Успешно!</p>
-                    <button className="profile-form__button profile-form__button_edit" type="submit"
-                            aria-label="Редактировать">Редактировать
+                    <p className={"profile__message" + (isError ? ' profile__message_error' : ' profile__message_success')}>{message || ''}</p>
+                    <button
+                            className="profile-form__button profile-form__button_edit"
+                            type="submit"
+                            aria-label="Редактировать"
+                            disabled={ isFieldDisabled || isSame || !isValid }
+                    >Редактировать
                     </button>
                     <button className="profile-form__button profile-form__button_logout" type="button"
                             aria-label="Выйти из аккаунта" onClick={props.onSignout}>Выйти из аккаунта

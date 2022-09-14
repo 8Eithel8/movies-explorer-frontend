@@ -9,6 +9,7 @@ const SERVER_ERR_MSG = 'Что-то пошло не так! Попробуйте
 const FIELDS_ERR_MSG = 'Некорректное значение одного или нескольких полей';
 const LOGIN_ERR_MSG = 'Неверный логин или пароль.';
 const USER_EXISTS_ERR_MSG = 'Пользователь с таким логином уже зарегистрирован.';
+const SUCCESS_UPDATE_MSG = 'Данные успешно обновлены!'
 
 module.exports = {
   BAD_REQ_ERR_CODE,
@@ -22,4 +23,5 @@ module.exports = {
   FIELDS_ERR_MSG,
   LOGIN_ERR_MSG,
   USER_EXISTS_ERR_MSG,
+  SUCCESS_UPDATE_MSG,
 };

@@ -1,5 +1,9 @@
 export const BASE_URL = 'https://api.ulitina.movies.nomorepartiesxyz.ru';
 
+const headers = () => ({
+    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+    'Content-Type': 'application/json'
+})
 function responseCheck(res) {
     if (res.ok) {
         return res.json();
@@ -37,6 +41,18 @@ export const getData = (token) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         }
+    })
+        .then(responseCheck);
+}
+
+export const updateData = ({name, email}) => {
+    return fetch(`${BASE_URL}/users/me`, {
+        method: 'PATCH',
+        headers: headers(),
+        body: JSON.stringify({
+            name,
+            email
+        })
     })
         .then(responseCheck);
 }

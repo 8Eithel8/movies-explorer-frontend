@@ -5,8 +5,6 @@ import {useFormWithValidation} from "../../utils/FormValidator.js";
 
 function Profile(props) {
     const currentUser = React.useContext(CurrentUserContext);
-    // const [name, setName] = React.useState(currentUser.name);
-    // const [email , setEmail ] = React.useState(currentUser.email);
     const { values, setValues, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
     React.useEffect(() => {
@@ -60,6 +58,8 @@ function Profile(props) {
                     <span className="profile__error">{ errors.email || '' }</span>
                 </div>
                 <div className="profile-form__buttons">
+                    {/*<p className="form__error name-error">{ errorSubmit || '' }</p>*/}
+                    <p className="profile__error profile__success">Успешно!</p>
                     <button className="profile-form__button profile-form__button_edit" type="submit"
                             aria-label="Редактировать">Редактировать
                     </button>

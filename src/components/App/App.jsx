@@ -150,6 +150,7 @@ function App() {
                             path="/profile"
                             component={Profile}
                             onSubmit={updateUserInfo}
+                            onSignout={onSignOut}
                             allowed={isLoggedIn}
                             isLoggedIn={isLoggedIn}
                         />

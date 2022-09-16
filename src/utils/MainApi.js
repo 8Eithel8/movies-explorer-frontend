@@ -4,7 +4,7 @@ const headers = () => ({
     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
 })
-function responseCheck(res) {
+export function responseCheck(res) {
     if (res.ok) {
         return res.json();
     }

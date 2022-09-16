@@ -4,19 +4,22 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList.jsx";
 import React from "react";
 import {cards} from "../../utils/cards"
 import {getMovies} from "../../utils/MoviesApi.js";
-import {MOVIES_GRID, MOVIES_LS_KEY, SERVER_ERR_MSG} from "../../utils/constants.js";
+import {MOVIES_GRID, MOVIES_LS_KEY, SERVER_ERR_MSG, SHORT_MOVIE_DURATION} from "../../utils/constants.js";
 
 function Movies() {
     const [message, setMessage] = React.useState('');
     const [movies, setMovies] = React.useState([]);
+    const [moviesFiltred, setMoviesFiltred] = React.useState([]);
     const [initAmount, setInitAmount] = React.useState(0);
     const [addAmount, setAddAmount] = React.useState(0);
     const [currAmount, setCurrAmount] = React.useState(0);
     const [isHidden, setIsHidden] = React.useState(true);
+    const [isShorts, setIsShorts] = React.useState(true);
+    const [searchText, setSearchText] = React.useState('');
 
     React.useEffect(() => setCurrAmount(initAmount), [initAmount])
 
-    React.useEffect(() => setIsHidden(movies.length < currAmount), [movies, currAmount])
+    React.useEffect(() => setIsHidden(moviesFiltred.length < currAmount), [moviesFiltred, currAmount])
 
     const onAddMore = () => setCurrAmount(currAmount + addAmount);
 
@@ -75,10 +78,33 @@ function Movies() {
             setMovies(lsMovies);
         }
     }, []);
+
+
+    React.useEffect(() => {
+        const filtredByDuration = isShorts
+            ? movies.filter(movie => movie.duration <= SHORT_MOVIE_DURATION)
+            : movies;
+
+        const filtredByText = searchText.length > 0
+            ? filtredByDuration.filter(movie => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()))
+            : filtredByDuration;
+
+        setMoviesFiltred(filtredByText);
+    }, [movies, isShorts, searchText])
+
+
+    const changeHandler = () => {
+        setIsShorts(!isShorts);
+    }
+
+    const inputHandler = (text) => {
+        setSearchText(text);
+    }
+
     return (
         <main className="movies">
-            <SearchForm/>
-            <MoviesCardList cards={movies.slice(0, currAmount)}/>
+            <SearchForm isShorts={isShorts} changeHandler={changeHandler}  onSubmit={inputHandler}/>
+            <MoviesCardList cards={moviesFiltred.slice(0, currAmount)}/>
             <button className={"movies__button" + (isHidden ? " movies__button_hidden" : "" )} type="button" onClick={onAddMore}>Еще</button>
         </main>
     );

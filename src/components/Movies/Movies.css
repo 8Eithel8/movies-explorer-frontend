@@ -42,3 +42,7 @@
         margin-bottom: 100px;
     }
 }
+
+.movies__button_hidden {
+    display: none;
+}

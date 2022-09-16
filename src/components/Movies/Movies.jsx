@@ -12,8 +12,11 @@ function Movies() {
     const [initAmount, setInitAmount] = React.useState(0);
     const [addAmount, setAddAmount] = React.useState(0);
     const [currAmount, setCurrAmount] = React.useState(0);
+    const [isHidden, setIsHidden] = React.useState(true);
 
     React.useEffect(() => setCurrAmount(initAmount), [initAmount])
+
+    React.useEffect(() => setIsHidden(movies.length < currAmount), [movies, currAmount])
 
     const onAddMore = () => setCurrAmount(currAmount + addAmount);
 
@@ -30,7 +33,22 @@ function Movies() {
         return MOVIES_GRID.desk;
     }
 
-    // function
+    function configGrid() {
+        const {init, add} = getGridParams(window.innerWidth);
+        if (init !== initAmount) {
+            setInitAmount(init);
+            setAddAmount(add);
+        }
+    }
+
+    React.useEffect(() => {
+        configGrid();
+        window.addEventListener('resize', () => {
+            setTimeout(() => {
+                configGrid();
+            }, 400);
+        });
+    }, []);
 
     React.useEffect(() => {
         let lsMovies = JSON.parse(localStorage.getItem(MOVIES_LS_KEY));
@@ -60,8 +78,8 @@ function Movies() {
     return (
         <main className="movies">
             <SearchForm/>
-            <MoviesCardList cards={movies}/>
-            <button className="movies__button" type="button">Еще</button>
+            <MoviesCardList cards={movies.slice(0, currAmount)}/>
+            <button className={"movies__button" + (isHidden ? " movies__button_hidden" : "" )} type="button" onClick={onAddMore}>Еще</button>
         </main>
     );
 }

@@ -9,6 +9,7 @@ function Form(props) {
     const [errorSubmit, setErrorSubmit] = React.useState('');
     const [isFieldDisabled, setIsFieldDisabled] = React.useState(false);
 
+    React.useEffect(() => setErrorSubmit(''), [values]);
 
     const onSubmit = (evt) => {
         evt.preventDefault();
@@ -30,7 +31,7 @@ function Form(props) {
                             placeholder="Имя"
                             required
                             minLength="2"
-                            maxLength="40"
+                            maxLength="30"
                             pattern="[A-Za-zА-Яа-яЁё\s-]+"
                             onChange={ handleChange }
                         />
@@ -48,7 +49,7 @@ function Form(props) {
                         placeholder="E-mail"
                         required
                         minLength="2"
-                        maxLength="40"
+                        maxLength="30"
                         onChange={ handleChange }
                     />
                     <span className="form__error name-error">{ errors.email || '' }</span>
@@ -64,7 +65,7 @@ function Form(props) {
                         placeholder="Ваш пароль"
                         required
                         minLength="8"
-                        maxLength="40"
+                        maxLength="30"
                         onChange={ handleChange }
                     />
                     <span className="form__error name-error">{ errors.password || '' }</span>

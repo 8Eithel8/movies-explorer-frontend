@@ -14,8 +14,9 @@ function Movies() {
     const [addAmount, setAddAmount] = React.useState(0);
     const [currAmount, setCurrAmount] = React.useState(0);
     const [isHidden, setIsHidden] = React.useState(true);
-    const [isShorts, setIsShorts] = React.useState(true);
-    const [searchText, setSearchText] = React.useState('');
+    const [searchParams, setSearchParams] = React.useState({isShorts: false, text: ''});
+    // const [isShorts, setIsShorts] = React.useState(true);
+    // const [searchText, setSearchText] = React.useState('');
 
     React.useEffect(() => setCurrAmount(initAmount), [initAmount])
 
@@ -44,16 +45,8 @@ function Movies() {
         }
     }
 
-    React.useEffect(() => {
-        configGrid();
-        window.addEventListener('resize', () => {
-            setTimeout(() => {
-                configGrid();
-            }, 400);
-        });
-    }, []);
-
-    React.useEffect(() => {
+    //получает фильмы с сервера или из хранилища
+    function getMovies () {
         let lsMovies = JSON.parse(localStorage.getItem(MOVIES_LS_KEY));
         if (!lsMovies) {
             getMovies()
@@ -77,33 +70,58 @@ function Movies() {
         } else {
             setMovies(lsMovies);
         }
-    }, []);
-
+    }
 
     React.useEffect(() => {
-        const filtredByDuration = isShorts
+        getMovies();
+        configGrid();
+        const {text, isShorts, moviesFiltred} = JSON.parse(localStorage.getItem('searchParams'));
+        setMoviesFiltred(moviesFiltred);
+        setSearchParams({text, isShorts})
+
+        window.addEventListener('resize', () => {
+            setTimeout(() => {
+                configGrid();
+            }, 400);
+        });
+    }, []);
+
+    //фильтрует фильмы
+    function findMovies (isShorts, text) {
+        const moviesFiltredByDuration = isShorts
             ? movies.filter(movie => movie.duration <= SHORT_MOVIE_DURATION)
             : movies;
 
-        const filtredByText = searchText.length > 0
-            ? filtredByDuration.filter(movie => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()))
-            : filtredByDuration;
+        const moviesFiltred = text.length > 0
+            ? moviesFiltredByDuration.filter(movie => movie.nameRU.toLowerCase().includes(text.toLowerCase()))
+            : moviesFiltredByDuration;
 
-        setMoviesFiltred(filtredByText);
-    }, [movies, isShorts, searchText])
-
-
-    const changeHandler = () => {
-        setIsShorts(!isShorts);
+        setMoviesFiltred(moviesFiltred);
+        localStorage.setItem('searchParams', JSON.stringify({text, isShorts, moviesFiltred}));
     }
 
-    const inputHandler = (text) => {
-        setSearchText(text);
+    // переключает чекбокс, запускает процесс поиска фильма
+    function changeHandler () {
+        const isShorts = !searchParams.isShorts;
+        setSearchParams({
+            ...searchParams,
+            isShorts
+        })
+        findMovies( isShorts, searchParams.text);
+    }
+
+    //по введеному тексту из поля запускает процесс поиска фильма
+    function inputHandler (text) {
+        setSearchParams({
+            ...searchParams,
+            text
+        })
+        findMovies(searchParams.isShorts, text);
     }
 
     return (
         <main className="movies">
-            <SearchForm isShorts={isShorts} changeHandler={changeHandler}  onSubmit={inputHandler}/>
+            <SearchForm isShorts={setSearchParams.isShorts} changeHandler={changeHandler}  onSubmit={inputHandler}/>
             <MoviesCardList cards={moviesFiltred.slice(0, currAmount)}/>
             <button className={"movies__button" + (isHidden ? " movies__button_hidden" : "" )} type="button" onClick={onAddMore}>Еще</button>
         </main>

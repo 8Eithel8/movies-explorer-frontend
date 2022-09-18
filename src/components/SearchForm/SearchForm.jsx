@@ -4,13 +4,21 @@ import React from "react";
 
 function SearchForm(props) {
 
+    const [errorMessage, setErrorMessage] = React.useState('');
+
     const onSubmit = (evt) => {
         evt.preventDefault();
-        props.onSubmit();
+        props.onSubmit(setErrorMessage);
+    }
+
+    const inputHandler = (evt) => {
+        props.inputHandler(evt.target.value);
+        setErrorMessage('');
     }
 
     return (
         <section className="search">
+            <p className="search__error">{errorMessage}</p>
             <div className="search__container">
                 <form className="search__form" name="films-search" onSubmit={ onSubmit }>
                     <label htmlFor="checkbox" className="search__field-label">
@@ -18,10 +26,9 @@ function SearchForm(props) {
                         <input
                             className="search__field"
                             value={props.params.text}
-                            onChange={props.inputHandler}
+                            onChange={inputHandler}
                             type="text"
                             placeholder="Фильм"
-                            required
                         />
                     </label>
                     <button type="submit" className="search__button link"></button>

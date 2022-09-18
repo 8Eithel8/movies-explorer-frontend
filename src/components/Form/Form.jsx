@@ -35,7 +35,7 @@ function Form(props) {
                             pattern="[A-Za-zА-Яа-яЁё\s-]+"
                             onChange={ handleChange }
                         />
-                        <span className="form__error name-error">{ errors.name || '' }</span>
+                        <span className="form__error">{ errors.name || '' }</span>
                     </label>
                 }
                 <label className="form__label" htmlFor="email">
@@ -52,7 +52,7 @@ function Form(props) {
                         maxLength="30"
                         onChange={ handleChange }
                     />
-                    <span className="form__error name-error">{ errors.email || '' }</span>
+                    <span className="form__error">{ errors.email || '' }</span>
                 </label>
                 <label className="form__label" htmlFor="password">
                     Пароль
@@ -68,11 +68,11 @@ function Form(props) {
                         maxLength="30"
                         onChange={ handleChange }
                     />
-                    <span className="form__error name-error">{ errors.password || '' }</span>
+                    <span className="form__error">{ errors.password || '' }</span>
                 </label>
             </div>
             <div>
-                <p className="form__error name-error">{ errorSubmit || '' }</p>
+                <p className="form__error">{ errorSubmit || '' }</p>
                 <button
                     className="form__button"
                     type="submit"

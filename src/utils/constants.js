@@ -27,7 +27,7 @@ const MOVIES_GRID = {
   intermediate: {
     init: 9,
     add: 3,
-    maxWidth: 1200,
+    maxWidth: 1279,
   },
   tab: {
     init: 8,

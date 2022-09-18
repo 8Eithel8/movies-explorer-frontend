@@ -15,8 +15,6 @@ function Movies() {
     const [currAmount, setCurrAmount] = React.useState(0);
     const [isHidden, setIsHidden] = React.useState(true);
     const [searchParams, setSearchParams] = React.useState({isShorts: false, text: ''});
-    // const [isShorts, setIsShorts] = React.useState(true);
-    // const [searchText, setSearchText] = React.useState('');
 
     React.useEffect(() => setCurrAmount(initAmount), [initAmount])
 
@@ -87,7 +85,7 @@ function Movies() {
     }, []);
 
     //фильтрует фильмы
-    function findMovies (isShorts, text) {
+    function findMovies (movies, {isShorts, text}) {
         const moviesFiltredByDuration = isShorts
             ? movies.filter(movie => movie.duration <= SHORT_MOVIE_DURATION)
             : movies;
@@ -101,27 +99,36 @@ function Movies() {
     }
 
     // переключает чекбокс, запускает процесс поиска фильма
-    function changeHandler () {
+    function checkboxHandler () {
+        const {text} = searchParams;
         const isShorts = !searchParams.isShorts;
         setSearchParams({
             ...searchParams,
             isShorts
         })
-        findMovies( isShorts, searchParams.text);
+        findMovies(movies, {isShorts, text});
     }
 
-    //по введеному тексту из поля запускает процесс поиска фильма
-    function inputHandler (text) {
+    // сохраняет текст из поля поиска
+    function inputHandler (evt) {
         setSearchParams({
             ...searchParams,
-            text
+            text: evt.target.value
         })
-        findMovies(searchParams.isShorts, text);
+    }
+
+    function submitHandler() {
+        findMovies(movies, searchParams);
     }
 
     return (
         <main className="movies">
-            <SearchForm isShorts={setSearchParams.isShorts} changeHandler={changeHandler}  onSubmit={inputHandler}/>
+            <SearchForm
+                params={searchParams}
+                checkboxHandler={checkboxHandler}
+                inputHandler={inputHandler}
+                onSubmit={submitHandler}
+            />
             <MoviesCardList cards={moviesFiltred.slice(0, currAmount)}/>
             <button className={"movies__button" + (isHidden ? " movies__button_hidden" : "" )} type="button" onClick={onAddMore}>Еще</button>
         </main>

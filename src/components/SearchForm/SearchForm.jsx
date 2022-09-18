@@ -3,11 +3,10 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.jsx";
 import React from "react";
 
 function SearchForm(props) {
-    const textRef = React.useRef();
 
     const onSubmit = (evt) => {
         evt.preventDefault();
-        props.onSubmit(textRef.current.value.trim());
+        props.onSubmit();
     }
 
     return (
@@ -18,14 +17,16 @@ function SearchForm(props) {
                         <span className="search__icon"></span>
                         <input
                             className="search__field"
-                            ref={ textRef }
+                            value={props.params.text}
+                            onChange={props.inputHandler}
                             type="text"
                             placeholder="Фильм"
+                            required
                         />
                     </label>
                     <button type="submit" className="search__button link"></button>
                 </form>
-                <FilterCheckbox checked={props.isShorts} changeHandler={props.changeHandler}/>
+                <FilterCheckbox checked={props.params.isShorts} changeHandler={props.checkboxHandler}/>
             </div>
         </section>
     );

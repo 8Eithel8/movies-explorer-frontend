@@ -4,6 +4,9 @@
     overflow: hidden;
     background: #222;
     box-shadow: 0 16px 24px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    filter: brightness(1);
+    transition: filter 0.3s ease;
 }
 
 @media (max-width: 1023px) {
@@ -17,6 +20,12 @@
     .card {
         min-height: 235px;
     }
+}
+
+.card:hover {
+    opacity: .7;
+    filter: brightness(1.5);
+    transition: filter 0.3s ease;
 }
 
 .card__image {

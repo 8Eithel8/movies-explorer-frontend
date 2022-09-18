@@ -2,25 +2,29 @@ import './Movies.css';
 import SearchForm from "../SearchForm/SearchForm.jsx";
 import MoviesCardList from "../MoviesCardList/MoviesCardList.jsx";
 import React from "react";
-import {cards} from "../../utils/cards"
-import {getMovies} from "../../utils/MoviesApi.js";
-import {MOVIES_GRID, MOVIES_LS_KEY, SERVER_ERR_MSG, SHORT_MOVIE_DURATION} from "../../utils/constants.js";
+import {
+    MOVIES_ERR_MSG,
+    MOVIES_GRID,
+    MOVIES_NOT_FOUND, SEARCH_TEXT_ERR,
+    SHORT_MOVIE_DURATION
+} from "../../utils/constants.js";
+import Preloader from "../Preloader/Preloader.jsx";
 
-function Movies() {
+function Movies(props) {
     const [message, setMessage] = React.useState('');
     const [movies, setMovies] = React.useState([]);
     const [moviesFiltred, setMoviesFiltred] = React.useState([]);
-    const [initAmount, setInitAmount] = React.useState(0);
-    const [addAmount, setAddAmount] = React.useState(0);
+    const [gridParams, setGridParams] = React.useState({init: 0, add: 0})
     const [currAmount, setCurrAmount] = React.useState(0);
     const [isHidden, setIsHidden] = React.useState(true);
+    const [isSearchInProgress, setIsSearchInProgress] = React.useState(false);
     const [searchParams, setSearchParams] = React.useState({isShorts: false, text: ''});
 
-    React.useEffect(() => setCurrAmount(initAmount), [initAmount])
+    React.useEffect(() => setCurrAmount(gridParams.init), [gridParams])
 
     React.useEffect(() => setIsHidden(moviesFiltred.length < currAmount), [moviesFiltred, currAmount])
 
-    const onAddMore = () => setCurrAmount(currAmount + addAmount);
+    const onAddMore = () => setCurrAmount(currAmount + gridParams.add);
 
     function getGridParams (width) {
         if (width <= MOVIES_GRID.mobile.maxWidth) {
@@ -36,46 +40,43 @@ function Movies() {
     }
 
     function configGrid() {
-        const {init, add} = getGridParams(window.innerWidth);
-        if (init !== initAmount) {
-            setInitAmount(init);
-            setAddAmount(add);
+        const params = getGridParams(window.innerWidth);
+        if (gridParams.init !== params.init) {
+            setGridParams(params);
         }
     }
 
-    //получает фильмы с сервера или из хранилища
-    function getMovies () {
-        let lsMovies = JSON.parse(localStorage.getItem(MOVIES_LS_KEY));
-        if (!lsMovies) {
-            getMovies()
-                .then(data => {
-                    const movies = data.map(movie => ({
-                        country: movie.country,
-                        director: movie.director,
-                        duration: movie.duration,
-                        year: movie.year,
-                        description: movie.description,
-                        image: movie.image.url,
-                        trailerLink: movie.trailerLink,
-                        thumbnail: movie.image.formats.thumbnail.url,
-                        movieId: movie.id,
-                        nameRU: movie.nameRU,
-                        nameEN: movie.nameEN,
-                    }))
-                    localStorage.setItem(MOVIES_LS_KEY, JSON.stringify(movies));
+    //получает фильмы с сервера или из состояния
+    function findMovies (params) {
+        setMessage('');
+        setIsSearchInProgress(true);
+        setMoviesFiltred([]);
+        if (movies.length === 0) {
+            props.getMovies()
+                .then(movies => {
                     setMovies(movies);
-                }).catch(() => setMessage(SERVER_ERR_MSG))
+                    filterMovies(movies, params)
+                })
+                .catch(() => setMessage(MOVIES_ERR_MSG))
+                .finally(() => setIsSearchInProgress(false))
         } else {
-            setMovies(lsMovies);
+            filterMovies(movies, params);
+            setIsSearchInProgress(false);
         }
     }
 
     React.useEffect(() => {
-        getMovies();
         configGrid();
-        const {text, isShorts, moviesFiltred} = JSON.parse(localStorage.getItem('searchParams'));
-        setMoviesFiltred(moviesFiltred);
-        setSearchParams({text, isShorts})
+
+        const searchParams = JSON.parse(localStorage.getItem('searchParams'));
+        if (searchParams) {
+            setMoviesFiltred(searchParams.moviesFiltred);
+            setSearchParams({
+                text: searchParams.text,
+                isShorts: searchParams.isShorts
+            })
+            if (searchParams.moviesFiltred.length === 0) setMessage(MOVIES_NOT_FOUND);
+        }
 
         window.addEventListener('resize', () => {
             setTimeout(() => {
@@ -85,7 +86,7 @@ function Movies() {
     }, []);
 
     //фильтрует фильмы
-    function findMovies (movies, {isShorts, text}) {
+    function filterMovies (movies, {isShorts, text}) {
         const moviesFiltredByDuration = isShorts
             ? movies.filter(movie => movie.duration <= SHORT_MOVIE_DURATION)
             : movies;
@@ -95,6 +96,9 @@ function Movies() {
             : moviesFiltredByDuration;
 
         setMoviesFiltred(moviesFiltred);
+        if (moviesFiltred.length === 0) {
+            setMessage(MOVIES_NOT_FOUND);
+        }
         localStorage.setItem('searchParams', JSON.stringify({text, isShorts, moviesFiltred}));
     }
 
@@ -106,19 +110,23 @@ function Movies() {
             ...searchParams,
             isShorts
         })
-        findMovies(movies, {isShorts, text});
+        findMovies({isShorts, text});
     }
 
     // сохраняет текст из поля поиска
-    function inputHandler (evt) {
+    function inputHandler (text) {
         setSearchParams({
             ...searchParams,
-            text: evt.target.value
+            text
         })
     }
 
-    function submitHandler() {
-        findMovies(movies, searchParams);
+    function submitHandler(setErrorMessage) {
+        if (searchParams.text.length === 0) {
+            setErrorMessage(SEARCH_TEXT_ERR)
+        } else {
+            findMovies(searchParams);
+        }
     }
 
     return (
@@ -129,8 +137,18 @@ function Movies() {
                 inputHandler={inputHandler}
                 onSubmit={submitHandler}
             />
-            <MoviesCardList cards={moviesFiltred.slice(0, currAmount)}/>
-            <button className={"movies__button" + (isHidden ? " movies__button_hidden" : "" )} type="button" onClick={onAddMore}>Еще</button>
+            {
+                isSearchInProgress
+                    ? <Preloader/>
+                    :
+                        <>
+                            <MoviesCardList cards={moviesFiltred.slice(0, currAmount)}/>
+                            <button className={"movies__button" + (isHidden ? " movies__button_hidden" : "" )} type="button" onClick={onAddMore}>Еще</button>
+                            <p>{message}</p>
+                        </>
+            }
+
+
         </main>
     );
 }

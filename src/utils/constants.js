@@ -14,6 +14,7 @@ const MOVIES_ERR_MSG = 'Во время запроса произошла оши
     'Возможно, проблема с соединением или сервер недоступен. ' +
     'Подождите немного и попробуйте ещё раз';
 const MOVIES_NOT_FOUND = 'Ничего не найдено';
+const SEARCH_TEXT_ERR = 'Нужно ввести ключевое слово';
 
 const MOVIES_LS_KEY = "movies"
 
@@ -56,6 +57,7 @@ module.exports = {
   SUCCESS_UPDATE_MSG,
   MOVIES_ERR_MSG,
   MOVIES_NOT_FOUND,
+  SEARCH_TEXT_ERR,
 
   MOVIES_LS_KEY,
 

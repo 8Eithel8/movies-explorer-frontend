@@ -11,7 +11,7 @@ export const getMovies = (token) => {
                     duration: movie.duration,
                     year: movie.year,
                     description: movie.description,
-                    image: movie.image.url,
+                    image: MOVIES_URL + movie.image.url,
                     trailerLink: movie.trailerLink,
                     thumbnail: movie.image.formats.thumbnail.url,
                     movieId: movie.id,

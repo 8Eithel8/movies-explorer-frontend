@@ -58,6 +58,7 @@
     display: flex;
     justify-content: space-between;
     padding: 9px 12px;
+    gap: 10px;
 }
 
 .card__title {

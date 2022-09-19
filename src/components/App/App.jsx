@@ -227,6 +227,9 @@ function App() {
                                     isLoggedIn={isLoggedIn}
                                     allowed={isLoggedIn}
                                     searchMovies={searchMovies}
+                                    handleAddMovie={handleAddMovie}
+                                    handleRemoveMovie={handleRemoveMovie}
+                                    savedMovies={savedMovies}
                                 />
 
                                 <ProtectedRoute

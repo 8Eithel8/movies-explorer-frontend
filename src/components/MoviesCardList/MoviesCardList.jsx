@@ -9,9 +9,12 @@ function MoviesCardList(props) {
                 <MoviesCard
                     key={card.movieId}
                     data = {card}
+                    handleAddMovie={props.handleAddMovie}
+                    handleRemoveMovie={props.handleRemoveMovie}
                     //TODO разобраться с этими параметрами
                     like={ card.like }
                     isSaved={props.isSaved}
+                    savedMovies={props.savedMovies}
                 />
             ))}
         </div>

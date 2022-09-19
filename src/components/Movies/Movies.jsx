@@ -6,7 +6,7 @@ import { MOVIES_ERR_MSG, MOVIES_NOT_FOUND, SEARCH_TEXT_ERR } from "../../utils/c
 import Preloader from "../Preloader/Preloader.jsx";
 import { getFiltered, getGridParams, loadSearchParams, saveSearchParams } from "../../utils/moviesHelpers.js";
 
-function Movies({ searchMovies }) {
+function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }) {
     const [message, setMessage] = React.useState('');
 
     const [movies, setMovies] = React.useState([]);
@@ -128,7 +128,13 @@ function Movies({ searchMovies }) {
                     ? <Preloader/>
                     :
                         <>
-                            <MoviesCardList cards={moviesFiltered.slice(0, currAmount)}/>
+                            <MoviesCardList
+                                cards={moviesFiltered.slice(0, currAmount)}
+                                handleAddMovie={handleAddMovie}
+                                handleRemoveMovie={handleRemoveMovie}
+                                savedMovies={savedMovies}
+
+                            />
                             <button className={"movies__button" + (isHidden ? " movies__button_hidden" : "" )} type="button" onClick={onAddMore}>Еще</button>
                             <p>{message}</p>
                         </>

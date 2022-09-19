@@ -8,7 +8,7 @@ import Login from "../Login/Login.jsx";
 import Profile from "../Profile/Profile.jsx";
 import Movies from "../Movies/Movies.jsx";
 import SavedMovies from "../SavedMovies/SavedMovies.jsx";
-import { authorize, getData, register, updateData } from "../../utils/MainApi.js";
+import {authorize, getData, getSavedMovies, postMovie, register, removeMovie, updateData} from "../../utils/MainApi.js";
 import React from "react";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx";
@@ -29,6 +29,7 @@ function App() {
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [currentUser, setCurrentUser ] = React.useState({});
+    const [savedMovies, setSavedMovies ] = React.useState([]);
 
     function authErrorHandler(errCode, setErrorSubmit) {
         switch (errCode) {
@@ -92,7 +93,6 @@ function App() {
                 }
                 else {
                     setIsLoggedIn(false);
-                    // setUserLogin('');
                 }
             }).catch(
                 (err) => console.log('Error: ', err)
@@ -138,6 +138,49 @@ function App() {
         } else {
             actions.search(state.get, params)
         }
+    }
+
+    //полчаем список сохраненных фильмов пользователя
+    React.useEffect(
+        () => {
+            if (isLoggedIn) {
+                getSavedMovies()
+                    .then((movies) => {
+                        setSavedMovies(movies)
+                    })
+                    .catch(
+                        (err) => console.log('Error: ', err)
+                    );
+            } else {
+                setSavedMovies([]);
+            }
+        },
+        [isLoggedIn]
+    )
+
+    //добавляем фильмы в избранное
+    function handleAddMovie (movie) {
+        postMovie(movie)
+            .then((movie) => {
+                setSavedMovies([
+                    movie,
+                    ...savedMovies,
+                ])
+            })
+            .catch(
+                (err) => console.log('Error: ', err)
+            );
+    }
+
+    //удаляем фильм из избранного
+    function handleRemoveMovie  (movie) {
+        // Отправляем запрос в API и получаем обновлённые данные карточки
+        removeMovie(movie._id).then(() => {
+            setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
+        })
+            .catch(
+                (err) => console.log('Error: ', err)
+            );
     }
 
   return (

@@ -4,6 +4,7 @@ const headers = () => ({
     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
 })
+
 export function responseCheck(res) {
     if (res.ok) {
         return res.json();
@@ -33,6 +34,7 @@ export const authorize = ({email, password}) => {
     }).then(responseCheck);
 };
 
+//получаем информацию о пользователе
 export const getData = (token) => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
@@ -45,6 +47,7 @@ export const getData = (token) => {
         .then(responseCheck);
 }
 
+//обновляем информацию о пользователе
 export const updateData = ({name, email}) => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'PATCH',
@@ -55,4 +58,32 @@ export const updateData = ({name, email}) => {
         })
     })
         .then(responseCheck);
+}
+
+//загружаем сохраненные фильмы с сервера
+export const getSavedMovies = () => {
+    return fetch(`${BASE_URL}/movies`, {
+        method: 'GET',
+        headers: headers(),
+    })
+        .then(responseCheck)
+}
+
+//сохраняем фильм
+export const postMovie = (movie) => {
+    return fetch(`${BASE_URL}/movies`, {
+        method: 'POST',
+        headers: headers(),
+        body: JSON.stringify(movie)
+    })
+        .then(responseCheck)
+}
+
+//удалаяем фильм из избранного
+export const removeMovie = (id) => {
+    return fetch(`${BASE_URL}/movies/${id}`, {
+        method: 'DELETE',
+        headers: headers()
+    })
+        .then(responseCheck)
 }

@@ -1,13 +1,13 @@
 import React from "react";
 import './FilterCheckbox.css';
 
-function FilterCheckbox(props) {
+function FilterCheckbox({checked, changeHandler}) {
     return (
         <div className="filter-group">
             <input
                 type="checkbox"
-                checked={props.checked}
-                onChange={props.changeHandler}
+                checked={checked}
+                onChange={changeHandler}
                 className="filter-group__checkbox"
                 id="checkbox"
             />

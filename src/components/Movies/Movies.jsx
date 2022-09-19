@@ -2,42 +2,31 @@ import './Movies.css';
 import SearchForm from "../SearchForm/SearchForm.jsx";
 import MoviesCardList from "../MoviesCardList/MoviesCardList.jsx";
 import React from "react";
-import {
-    MOVIES_ERR_MSG,
-    MOVIES_GRID,
-    MOVIES_NOT_FOUND, SEARCH_TEXT_ERR,
-    SHORT_MOVIE_DURATION
-} from "../../utils/constants.js";
+import { MOVIES_ERR_MSG, MOVIES_NOT_FOUND, SEARCH_TEXT_ERR } from "../../utils/constants.js";
 import Preloader from "../Preloader/Preloader.jsx";
+import { getFiltered, getGridParams, loadSearchParams, saveSearchParams } from "../../utils/moviesHelpers.js";
 
-function Movies(props) {
+function Movies({ searchMovies }) {
     const [message, setMessage] = React.useState('');
+
     const [movies, setMovies] = React.useState([]);
-    const [moviesFiltred, setMoviesFiltred] = React.useState([]);
+    const [moviesFiltered, setMoviesFiltered] = React.useState([]);
+
     const [gridParams, setGridParams] = React.useState({init: 0, add: 0})
     const [currAmount, setCurrAmount] = React.useState(0);
     const [isHidden, setIsHidden] = React.useState(true);
+
     const [isSearchInProgress, setIsSearchInProgress] = React.useState(false);
     const [searchParams, setSearchParams] = React.useState({isShorts: false, text: ''});
 
-    React.useEffect(() => setCurrAmount(gridParams.init), [gridParams])
+    function resetCurrAmount() {
+        setCurrAmount(gridParams.init)
+    }
 
-    React.useEffect(() => setIsHidden(moviesFiltred.length < currAmount), [moviesFiltred, currAmount])
+    React.useEffect(() => resetCurrAmount(), [gridParams])
+    React.useEffect(() => setIsHidden(moviesFiltered.length < currAmount), [moviesFiltered, currAmount])
 
     const onAddMore = () => setCurrAmount(currAmount + gridParams.add);
-
-    function getGridParams (width) {
-        if (width <= MOVIES_GRID.mobile.maxWidth) {
-            return MOVIES_GRID.mobile;
-        }
-        if (width <= MOVIES_GRID.tab.maxWidth) {
-            return MOVIES_GRID.tab;
-        }
-        if (width <= MOVIES_GRID.intermediate.maxWidth) {
-            return MOVIES_GRID.intermediate;
-        }
-        return MOVIES_GRID.desk;
-    }
 
     function configGrid() {
         const params = getGridParams(window.innerWidth);
@@ -46,37 +35,53 @@ function Movies(props) {
         }
     }
 
-    //получает фильмы с сервера или из состояния
-    function findMovies (params) {
+
+    //фильтрует фильмы
+    function filterMovies (movies, {isShorts, text}) {
+        const filtered = getFiltered(movies, {isShorts, text});
+
+        setMoviesFiltered(filtered);
+        if (filtered.length === 0) {
+            setMessage(MOVIES_NOT_FOUND);
+        }
+        saveSearchParams(text, isShorts, filtered)
+    }
+
+    function prepareSearch() {
         setMessage('');
         setIsSearchInProgress(true);
-        setMoviesFiltred([]);
-        if (movies.length === 0) {
-            props.getMovies()
-                .then(movies => {
-                    setMovies(movies);
-                    filterMovies(movies, params)
-                })
-                .catch(() => setMessage(MOVIES_ERR_MSG))
-                .finally(() => setIsSearchInProgress(false))
-        } else {
-            filterMovies(movies, params);
-            setIsSearchInProgress(false);
-        }
+        setMoviesFiltered([]);
+    }
+
+    function search(movies, params) {
+        filterMovies(movies, params);
+        setIsSearchInProgress(false);
+    }
+
+    function handleSearchError() {
+        setMessage(MOVIES_ERR_MSG);
+        setIsSearchInProgress(false)
+    }
+
+
+    function findMovies (params) {
+        searchMovies(
+            params,
+            {
+                prepare: prepareSearch,
+                search: search,
+                handleError: handleSearchError
+            },
+            {
+                get: movies,
+                set: setMovies
+            }
+        )
     }
 
     React.useEffect(() => {
         configGrid();
-
-        const searchParams = JSON.parse(localStorage.getItem('searchParams'));
-        if (searchParams) {
-            setMoviesFiltred(searchParams.moviesFiltred);
-            setSearchParams({
-                text: searchParams.text,
-                isShorts: searchParams.isShorts
-            })
-            if (searchParams.moviesFiltred.length === 0) setMessage(MOVIES_NOT_FOUND);
-        }
+        loadSearchParams(setMoviesFiltered, setSearchParams, setMessage);
 
         window.addEventListener('resize', () => {
             setTimeout(() => {
@@ -85,22 +90,6 @@ function Movies(props) {
         });
     }, []);
 
-    //фильтрует фильмы
-    function filterMovies (movies, {isShorts, text}) {
-        const moviesFiltredByDuration = isShorts
-            ? movies.filter(movie => movie.duration <= SHORT_MOVIE_DURATION)
-            : movies;
-
-        const moviesFiltred = text.length > 0
-            ? moviesFiltredByDuration.filter(movie => movie.nameRU.toLowerCase().includes(text.toLowerCase()))
-            : moviesFiltredByDuration;
-
-        setMoviesFiltred(moviesFiltred);
-        if (moviesFiltred.length === 0) {
-            setMessage(MOVIES_NOT_FOUND);
-        }
-        localStorage.setItem('searchParams', JSON.stringify({text, isShorts, moviesFiltred}));
-    }
 
     // переключает чекбокс, запускает процесс поиска фильма
     function checkboxHandler () {
@@ -111,6 +100,7 @@ function Movies(props) {
             isShorts
         })
         findMovies({isShorts, text});
+        resetCurrAmount();
     }
 
     // сохраняет текст из поля поиска
@@ -122,11 +112,9 @@ function Movies(props) {
     }
 
     function submitHandler(setErrorMessage) {
-        if (searchParams.text.length === 0) {
-            setErrorMessage(SEARCH_TEXT_ERR)
-        } else {
-            findMovies(searchParams);
-        }
+        searchParams.text.length === 0
+            ? setErrorMessage(SEARCH_TEXT_ERR)
+            : findMovies(searchParams);
     }
 
     return (
@@ -142,13 +130,11 @@ function Movies(props) {
                     ? <Preloader/>
                     :
                         <>
-                            <MoviesCardList cards={moviesFiltred.slice(0, currAmount)}/>
+                            <MoviesCardList cards={moviesFiltered.slice(0, currAmount)}/>
                             <button className={"movies__button" + (isHidden ? " movies__button_hidden" : "" )} type="button" onClick={onAddMore}>Еще</button>
                             <p>{message}</p>
                         </>
             }
-
-
         </main>
     );
 }

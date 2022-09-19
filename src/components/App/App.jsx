@@ -2,26 +2,27 @@ import './App.css';
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import Footer from "../Footer/Footer.jsx";
-import {Redirect, Route, Switch, useHistory} from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Register from "../Register/Register.jsx";
 import Login from "../Login/Login.jsx";
 import Profile from "../Profile/Profile.jsx";
 import Movies from "../Movies/Movies.jsx";
 import SavedMovies from "../SavedMovies/SavedMovies.jsx";
-import {authorize, getData, register, updateData} from "../../utils/MainApi.js";
+import { authorize, getData, register, updateData } from "../../utils/MainApi.js";
 import React from "react";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx";
-import {CurrentUserContext} from "../../contexts/CurrentUserContext.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 import {
     BAD_REQ_ERR_CODE,
-    CONFLICT_ERR_CODE, FIELDS_ERR_MSG,
+    CONFLICT_ERR_CODE, FIELDS_ERR_MSG, JWT_LS_KEY,
     LOGIN_ERR_MSG,
     SERVER_ERR_MSG, SUCCESS_UPDATE_MSG,
     UNAUTH_ERR_CODE,
     USER_EXISTS_ERR_MSG
 } from "../../utils/constants.js";
+import { getMovies } from "../../utils/MoviesApi.js";
 
 function App() {
     const history = useHistory()
@@ -61,7 +62,7 @@ function App() {
         setIsFieldDisabled(true);
         authorize(userData)
             .then((data) => {
-                    localStorage.setItem('jwt', data.token);
+                    localStorage.setItem(JWT_LS_KEY, data.token);
                     setIsLoggedIn(true);
                     history.push('/movies');
                     getData(data.token).then((user) => {
@@ -80,7 +81,7 @@ function App() {
     React.useEffect( () => {
         // если у пользователя есть токен в localStorage,
         // эта функция проверит валидность токена
-        const jwt = localStorage.getItem('jwt');
+        const jwt = localStorage.getItem(JWT_LS_KEY);
         if (jwt){
             // проверим токен
             getData(jwt).then((user) => {
@@ -102,7 +103,7 @@ function App() {
     //выход из аккаунта
     function onSignOut(){
         setIsLoggedIn(false);
-        localStorage.removeItem('jwt');
+        localStorage.removeItem(JWT_LS_KEY);
         history.push('/');
     }
 
@@ -121,6 +122,22 @@ function App() {
                 setMessage(SERVER_ERR_MSG)
                 setIsFieldDisabled(false)
             });
+    }
+
+    function searchMovies(params, actions, state) {
+        actions.prepare();
+        if (state.get.length === 0) {
+            getMovies()
+                .then(movies => {
+                    state.set(movies);
+                    actions.search(movies, params)
+                })
+                .catch(() => {
+                    actions.handleError();
+                })
+        } else {
+            actions.search(state.get, params)
+        }
     }
 
   return (
@@ -166,6 +183,7 @@ function App() {
                                     component={Movies}
                                     isLoggedIn={isLoggedIn}
                                     allowed={isLoggedIn}
+                                    searchMovies={searchMovies}
                                 />
 
                                 <ProtectedRoute

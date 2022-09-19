@@ -35,7 +35,6 @@ function Movies({ searchMovies }) {
         }
     }
 
-
     //фильтрует фильмы
     function filterMovies (movies, {isShorts, text}) {
         const filtered = getFiltered(movies, {isShorts, text});
@@ -62,7 +61,6 @@ function Movies({ searchMovies }) {
         setMessage(MOVIES_ERR_MSG);
         setIsSearchInProgress(false)
     }
-
 
     function findMovies (params) {
         searchMovies(

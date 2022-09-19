@@ -38,3 +38,5 @@ export function getFiltered (movies, {isShorts, text}) {
         ? moviesFiltredByDuration.filter(movie => movie.nameRU.toLowerCase().includes(text.toLowerCase()))
         : moviesFiltredByDuration;
 }
+
+export const durationToHours = duration => (Math.floor(duration / 60) + 'ч') + (duration % 60 + 'м');

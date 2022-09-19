@@ -24,7 +24,7 @@ function Movies({ searchMovies }) {
     }
 
     React.useEffect(() => resetCurrAmount(), [gridParams])
-    React.useEffect(() => setIsHidden(moviesFiltered.length < currAmount), [moviesFiltered, currAmount])
+    React.useEffect(() => setIsHidden(moviesFiltered.length <= currAmount), [moviesFiltered, currAmount])
 
     const onAddMore = () => setCurrAmount(currAmount + gridParams.add);
 

@@ -17,7 +17,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import {
     BAD_REQ_ERR_CODE,
     CONFLICT_ERR_CODE, FIELDS_ERR_MSG, JWT_LS_KEY,
-    LOGIN_ERR_MSG,
+    LOGIN_ERR_MSG, SEARCH_PARAMS_LS_KEY,
     SERVER_ERR_MSG, SUCCESS_UPDATE_MSG,
     UNAUTH_ERR_CODE,
     USER_EXISTS_ERR_MSG
@@ -104,6 +104,7 @@ function App() {
     function onSignOut(){
         setIsLoggedIn(false);
         localStorage.removeItem(JWT_LS_KEY);
+        localStorage.removeItem(SEARCH_PARAMS_LS_KEY);
         history.push('/');
     }
 
@@ -237,6 +238,9 @@ function App() {
                                     component={SavedMovies}
                                     isLoggedIn={isLoggedIn}
                                     allowed={isLoggedIn}
+                                    handleRemoveMovie={handleRemoveMovie}
+                                    savedMovies={savedMovies}
+
                                 />
                                 <Route path="*">
                                     <ErrorMessage history={history}/>

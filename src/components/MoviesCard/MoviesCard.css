@@ -88,22 +88,27 @@
     margin: 0;
 }
 
-.card__like {
+.card__button {
     width: 16px;
     height: 16px;
+}
+
+.card__button:hover {
+    cursor: pointer;
+}
+
+.card__button_like {
     border-radius: 50%;
     border: 2px solid #FFFFFF;
     background: #313131;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.09);
 }
 
-.card__like_checked {
+.card__button_checked {
     background: #2BE080;
 }
 
-.card__delete {
-    width: 16px;
-    height: 16px;
+.card__button_delete {
     background: url("../../images/close-btn.svg") no-repeat center;
     border: none;
 }

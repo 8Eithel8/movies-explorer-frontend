@@ -1,15 +1,19 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList.jsx";
 import SearchForm from "../SearchForm/SearchForm.jsx";
-import {cards} from "../../utils/cards";
 import React from "react";
+import {findMovieById} from "../../utils/moviesHelpers.js";
 
-function SavedMovies() {
+function SavedMovies(props) {
+    //добавляет/удаляет из избранного фильм при нажатии на кнопку
+    const handleClick = (data) => props.handleRemoveMovie(findMovieById(props.savedMovies, data.movieId))
+
     return (
         <main className="movies">
-            <SearchForm/>
+            {/*<SearchForm/>*/}
             <MoviesCardList
                 isSaved={true}
-                cards={cards.filter(card => card.like)}
+                cards={props.savedMovies}
+                handleClick={handleClick}
             />
         </main>
     );

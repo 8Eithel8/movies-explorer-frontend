@@ -4,7 +4,13 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList.jsx";
 import React from "react";
 import { MOVIES_ERR_MSG, MOVIES_NOT_FOUND, SEARCH_TEXT_ERR } from "../../utils/constants.js";
 import Preloader from "../Preloader/Preloader.jsx";
-import { getFiltered, getGridParams, loadSearchParams, saveSearchParams } from "../../utils/moviesHelpers.js";
+import {
+    findMovieById,
+    getFiltered,
+    getGridParams,
+    loadSearchParams,
+    saveSearchParams
+} from "../../utils/moviesHelpers.js";
 
 function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }) {
     const [message, setMessage] = React.useState('');
@@ -115,6 +121,13 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
             : findMovies(searchParams);
     }
 
+    //добавляет/удаляет из избранного фильм при нажатии на кнопку
+    const handleClick = (data, isLiked) => {
+        isLiked
+            ? handleRemoveMovie(findMovieById(savedMovies, data.movieId))
+            : handleAddMovie(data);
+    }
+
     return (
         <main className="movies">
             <SearchForm
@@ -133,7 +146,7 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
                                 handleAddMovie={handleAddMovie}
                                 handleRemoveMovie={handleRemoveMovie}
                                 savedMovies={savedMovies}
-
+                                handleClick={handleClick}
                             />
                             <button className={"movies__button" + (isHidden ? " movies__button_hidden" : "" )} type="button" onClick={onAddMore}>Еще</button>
                             <p>{message}</p>

@@ -15,6 +15,7 @@ function MoviesCardList(props) {
                     like={ card.like }
                     isSaved={props.isSaved}
                     savedMovies={props.savedMovies}
+                    handleClick={props.handleClick}
                 />
             ))}
         </div>

@@ -10,6 +10,7 @@ function FilterCheckbox({checked, changeHandler}) {
                 onChange={changeHandler}
                 className="filter-group__checkbox"
                 id="checkbox"
+                // disabled
             />
             <label htmlFor="checkbox" className="filter-group__checkbox-label"></label>
             <span className="filter-group__background"></span>

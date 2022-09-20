@@ -20,10 +20,11 @@ function SearchForm({params, onSubmit, inputHandler, checkboxHandler}) {
         <section className="search">
             <p className="search__error">{errorMessage}</p>
             <div className="search__container">
-                <form className="search__form" name="films-search" onSubmit={ submitHandler }>
+                <form className="search__form"  name="films-search" onSubmit={ submitHandler }>
                     <label htmlFor="checkbox" className="search__field-label">
                         <span className="search__icon"></span>
                         <input
+                            // disabled
                             className="search__field"
                             value={params.text}
                             onChange={textHandler}

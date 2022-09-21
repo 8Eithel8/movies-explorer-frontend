@@ -87,13 +87,15 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
         configGrid();
         loadSearchParams(setMoviesFiltered, setSearchParams, setMessage);
 
-        window.addEventListener('resize', () => {
+        function handleResize() {
             setTimeout(() => {
                 configGrid();
             }, 400);
-        });
-    }, []);
+        }
 
+        window.addEventListener('resize', handleResize);
+        return () =>  window.removeEventListener('resize', handleResize);
+    }, []);
 
     // переключает чекбокс, запускает процесс поиска фильма
     function handleCheckbox () {

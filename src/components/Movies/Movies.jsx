@@ -43,13 +43,13 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
 
     //фильтрует фильмы
     function filterMovies (movies, {isShorts, text}) {
-        const filtered = getFiltered(movies, {isShorts, text});
+        const moviesFiltered = getFiltered(movies, {isShorts, text});
 
-        setMoviesFiltered(filtered);
-        if (filtered.length === 0) {
+        setMoviesFiltered(moviesFiltered);
+        if (moviesFiltered.length === 0) {
             setMessage(MOVIES_NOT_FOUND);
         }
-        saveSearchParams(text, isShorts, filtered)
+        saveSearchParams(text, isShorts, moviesFiltered)
     }
 
     function prepareSearch() {
@@ -135,6 +135,7 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
                 checkboxHandler={checkboxHandler}
                 inputHandler={inputHandler}
                 onSubmit={submitHandler}
+                isDisabled={isSearchInProgress}
             />
             {
                 isSearchInProgress

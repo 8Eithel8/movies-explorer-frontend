@@ -2,7 +2,7 @@ import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.jsx";
 import React from "react";
 
-function SearchForm({params, onSubmit, inputHandler, checkboxHandler}) {
+function SearchForm({params, onSubmit, inputHandler, checkboxHandler, isDisabled}) {
 
     const [errorMessage, setErrorMessage] = React.useState('');
 
@@ -24,7 +24,7 @@ function SearchForm({params, onSubmit, inputHandler, checkboxHandler}) {
                     <label htmlFor="checkbox" className="search__field-label">
                         <span className="search__icon"></span>
                         <input
-                            // disabled
+                            disabled={isDisabled}
                             className="search__field"
                             value={params.text}
                             onChange={textHandler}
@@ -32,9 +32,9 @@ function SearchForm({params, onSubmit, inputHandler, checkboxHandler}) {
                             placeholder="Фильм"
                         />
                     </label>
-                    <button type="submit" className="search__button link"></button>
+                    <button type="submit" className="search__button link" disabled={isDisabled}></button>
                 </form>
-                <FilterCheckbox checked={params.isShorts} changeHandler={checkboxHandler}/>
+                <FilterCheckbox checked={params.isShorts} changeHandler={checkboxHandler} isDisabled={isDisabled}/>
             </div>
         </section>
     );

@@ -2,7 +2,7 @@ import './ErrorMessage.css';
 import React from "react";
 
 function ErrorMessage(props) {
-    const backHandler = () => props.history.goBack();
+    const handleBack = () => props.history.goBack();
 
     return (
         <div className="popup">
@@ -13,7 +13,7 @@ function ErrorMessage(props) {
                         Страница не найдена
                     </p>
                 </div>
-                <button className="popup__button link" onClick={backHandler}>Назад</button>
+                <button className="popup__button link" onClick={handleBack}>Назад</button>
             </div>
         </div>
     );

@@ -6,12 +6,12 @@ function SearchForm({params, onSubmit, inputHandler, checkboxHandler, isDisabled
 
     const [errorMessage, setErrorMessage] = React.useState('');
 
-    const submitHandler = (evt) => {
+    const handleSubmit = (evt) => {
         evt.preventDefault();
         onSubmit(setErrorMessage);
     }
 
-    const textHandler = (evt) => {
+    const handleText = (evt) => {
         inputHandler(evt.target.value);
         setErrorMessage('');
     }
@@ -20,14 +20,14 @@ function SearchForm({params, onSubmit, inputHandler, checkboxHandler, isDisabled
         <section className="search">
             <p className="search__error">{errorMessage}</p>
             <div className="search__container">
-                <form className="search__form"  name="films-search" onSubmit={ submitHandler }>
+                <form className="search__form"  name="films-search" onSubmit={ handleSubmit }>
                     <label htmlFor="checkbox" className="search__field-label">
                         <span className="search__icon"></span>
                         <input
                             disabled={isDisabled}
                             className="search__field"
                             value={params.text}
-                            onChange={textHandler}
+                            onChange={handleText}
                             type="text"
                             placeholder="Фильм"
                         />

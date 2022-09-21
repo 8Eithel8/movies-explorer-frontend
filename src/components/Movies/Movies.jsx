@@ -96,7 +96,7 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
 
 
     // переключает чекбокс, запускает процесс поиска фильма
-    function checkboxHandler () {
+    function handleCheckbox () {
         const {text} = searchParams;
         const isShorts = !searchParams.isShorts;
         setSearchParams({
@@ -108,14 +108,14 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
     }
 
     // сохраняет текст из поля поиска
-    function inputHandler (text) {
+    function handleInput (text) {
         setSearchParams({
             ...searchParams,
             text
         })
     }
 
-    function submitHandler(setErrorMessage) {
+    function handleSubmit(setErrorMessage) {
         searchParams.text.length === 0
             ? setErrorMessage(SEARCH_TEXT_ERR)
             : findMovies(searchParams);
@@ -132,9 +132,9 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
         <main className="movies">
             <SearchForm
                 params={searchParams}
-                checkboxHandler={checkboxHandler}
-                inputHandler={inputHandler}
-                onSubmit={submitHandler}
+                checkboxHandler={handleCheckbox}
+                inputHandler={handleInput}
+                onSubmit={handleSubmit}
                 isDisabled={isSearchInProgress}
             />
             {

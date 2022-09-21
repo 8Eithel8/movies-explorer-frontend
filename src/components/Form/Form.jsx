@@ -67,6 +67,7 @@ function Form(props) {
                         minLength="8"
                         maxLength="30"
                         onChange={ handleChange }
+                        autoComplete="on"
                     />
                     <span className="form__error">{ errors.password || '' }</span>
                 </label>

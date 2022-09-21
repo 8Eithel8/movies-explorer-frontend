@@ -91,7 +91,10 @@ function App() {
                     // авторизуем пользователя
                     setIsLoggedIn(true);
                     setCurrentUser(user);
-                    history.push(location.pathname);
+                    const path = location.pathname;
+                    path === '/signin' || path === '/signup'
+                        ? history.push('/movies')
+                        : history.push(path);
                 }
                 else {
                     setIsLoggedIn(false);

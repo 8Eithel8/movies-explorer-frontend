@@ -2,7 +2,7 @@ import './App.css';
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import Footer from "../Footer/Footer.jsx";
-import { Route, Switch, useHistory } from "react-router-dom";
+import {Route, Switch, useHistory, useLocation} from "react-router-dom";
 import Register from "../Register/Register.jsx";
 import Login from "../Login/Login.jsx";
 import Profile from "../Profile/Profile.jsx";
@@ -25,7 +25,8 @@ import {
 import { getMovies } from "../../utils/MoviesApi.js";
 
 function App() {
-    const history = useHistory()
+    const history = useHistory();
+    const location = useLocation();
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [currentUser, setCurrentUser ] = React.useState({});
@@ -90,6 +91,7 @@ function App() {
                     // авторизуем пользователя
                     setIsLoggedIn(true);
                     setCurrentUser(user);
+                    history.push(location.pathname);
                 }
                 else {
                     setIsLoggedIn(false);
@@ -188,20 +190,19 @@ function App() {
     <div className="App">
         <CurrentUserContext.Provider value={currentUser}>
             <Switch>
-                <ProtectedRoute
-                    path="/signup"
-                    component={Register}
-                    onSubmit={onSignUp}
-                    isLoggedIn={isLoggedIn}
-                    allowed={!isLoggedIn}
-                />
-                <ProtectedRoute
-                    path="/signin"
-                    component={Login}
-                    onSubmit={onSignIn}
-                    isLoggedIn={isLoggedIn}
-                    allowed={!isLoggedIn}
-                />
+                <Route path="/signup">
+                    <Register
+                        onSubmit={onSignUp}
+                        isLoggedIn={isLoggedIn}
+                    />
+                </Route>
+
+                <Route path="/signin">
+                    <Login
+                        onSubmit={onSignIn}
+                        isLoggedIn={isLoggedIn}
+                    />
+                </Route>
 
                 <Route path="*">
                     <Header isLoggedIn={isLoggedIn}/>
@@ -212,7 +213,6 @@ function App() {
                             component={Profile}
                             onSubmit={updateUserInfo}
                             onSignout={onSignOut}
-                            allowed={isLoggedIn}
                             isLoggedIn={isLoggedIn}
                         />
 
@@ -226,7 +226,6 @@ function App() {
                                     path="/movies"
                                     component={Movies}
                                     isLoggedIn={isLoggedIn}
-                                    allowed={isLoggedIn}
                                     searchMovies={searchMovies}
                                     handleAddMovie={handleAddMovie}
                                     handleRemoveMovie={handleRemoveMovie}
@@ -237,7 +236,6 @@ function App() {
                                     path="/saved-movies"
                                     component={SavedMovies}
                                     isLoggedIn={isLoggedIn}
-                                    allowed={isLoggedIn}
                                     handleRemoveMovie={handleRemoveMovie}
                                     savedMovies={savedMovies}
 

@@ -130,19 +130,19 @@ function App() {
             });
     }
 
-    function searchMovies(params, actions, state) {
+    function searchMovies(text, isShorts, actions, state) {
         actions.prepare();
         if (state.get.length === 0) {
             getMovies()
                 .then(movies => {
                     state.set(movies);
-                    actions.search(movies, params)
+                    actions.search(movies, text, isShorts)
                 })
                 .catch(() => {
                     actions.handleError();
                 })
         } else {
-            actions.search(state.get, params)
+            actions.search(state.get, text, isShorts)
         }
     }
 

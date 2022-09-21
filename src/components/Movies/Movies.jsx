@@ -5,8 +5,9 @@ import React from "react";
 import { MOVIES_ERR_MSG, MOVIES_NOT_FOUND, SEARCH_TEXT_ERR } from "../../utils/constants.js";
 import Preloader from "../Preloader/Preloader.jsx";
 import {
+    filterByDuration,
+    filterByText,
     findMovieById,
-    getFiltered,
     getGridParams,
     loadSearchParams,
     saveSearchParams
@@ -16,6 +17,7 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
     const [message, setMessage] = React.useState('');
 
     const [movies, setMovies] = React.useState([]);
+    const [moviesFound, setMoviesFound] = React.useState([]);
     const [moviesFiltered, setMoviesFiltered] = React.useState([]);
 
     const [gridParams, setGridParams] = React.useState({init: 0, add: 0})
@@ -23,7 +25,25 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
     const [isHidden, setIsHidden] = React.useState(true);
 
     const [isSearchInProgress, setIsSearchInProgress] = React.useState(false);
-    const [searchParams, setSearchParams] = React.useState({isShorts: false, text: ''});
+    const [isShorts, setIsShorts] = React.useState(false);
+    const [text, setText] = React.useState('');
+    const [isSearchWas, setIsSearchWas] = React.useState(false);
+
+    React.useEffect(() => setMoviesFiltered(filterByDuration(moviesFound, isShorts)), [moviesFound, isShorts])
+    React.useEffect(() => {
+        if (!isSearchInProgress && isSearchWas) {
+            if (moviesFiltered.length === 0) {
+                if (message === '' ) {
+                    setMessage(MOVIES_NOT_FOUND);
+                }
+            } else {
+                if (message === MOVIES_NOT_FOUND) {
+                    setMessage('');
+                }
+            }
+        }
+    }, [moviesFiltered, isSearchInProgress])
+
 
     function resetCurrAmount() {
         setCurrAmount(gridParams.init)
@@ -41,25 +61,18 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
         }
     }
 
-    //фильтрует фильмы
-    function filterMovies (movies, {isShorts, text}) {
-        const moviesFiltered = getFiltered(movies, {isShorts, text});
-
-        setMoviesFiltered(moviesFiltered);
-        if (moviesFiltered.length === 0) {
-            setMessage(MOVIES_NOT_FOUND);
-        }
-        saveSearchParams(text, isShorts, moviesFiltered)
-    }
-
     function prepareSearch() {
         setMessage('');
         setIsSearchInProgress(true);
-        setMoviesFiltered([]);
+        setMoviesFound([]);
     }
 
-    function search(movies, params) {
-        filterMovies(movies, params);
+    function search(movies, text, isShorts) {
+        const moviesFound = filterByText(movies, text);
+
+        setMoviesFound(moviesFound);
+        saveSearchParams(text, isShorts, moviesFound)
+        setIsSearchWas(true);
         setIsSearchInProgress(false);
     }
 
@@ -68,9 +81,10 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
         setIsSearchInProgress(false)
     }
 
-    function findMovies (params) {
+    function findMovies () {
         searchMovies(
-            params,
+            text,
+            isShorts,
             {
                 prepare: prepareSearch,
                 search: search,
@@ -85,7 +99,8 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
 
     React.useEffect(() => {
         configGrid();
-        loadSearchParams(setMoviesFiltered, setSearchParams, setMessage);
+        const result = loadSearchParams(setMoviesFound, setText, setIsShorts);
+        setIsSearchWas(result);
 
         function handleResize() {
             setTimeout(() => {
@@ -97,30 +112,18 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
         return () =>  window.removeEventListener('resize', handleResize);
     }, []);
 
-    // переключает чекбокс, запускает процесс поиска фильма
+    // переключает чекбокс, запускает процесс фильтрации фильмов
     function handleCheckbox () {
-        const {text} = searchParams;
-        const isShorts = !searchParams.isShorts;
-        setSearchParams({
-            ...searchParams,
-            isShorts
-        })
-        findMovies({isShorts, text});
+        const newIsShorts = !isShorts;
+        setIsShorts(newIsShorts)
         resetCurrAmount();
-    }
-
-    // сохраняет текст из поля поиска
-    function handleInput (text) {
-        setSearchParams({
-            ...searchParams,
-            text
-        })
+        saveSearchParams(text, newIsShorts, moviesFound)
     }
 
     function handleSubmit(setErrorMessage) {
-        searchParams.text.length === 0
+        text.length === 0
             ? setErrorMessage(SEARCH_TEXT_ERR)
-            : findMovies(searchParams);
+            : findMovies();
     }
 
     //добавляет/удаляет из избранного фильм при нажатии на кнопку
@@ -133,9 +136,9 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
     return (
         <main className="movies">
             <SearchForm
-                params={searchParams}
+                params={({text, isShorts})}
                 checkboxHandler={handleCheckbox}
-                inputHandler={handleInput}
+                inputHandler={setText}
                 onSubmit={handleSubmit}
                 isDisabled={isSearchInProgress}
             />

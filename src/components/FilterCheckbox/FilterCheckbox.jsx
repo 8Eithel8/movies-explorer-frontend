@@ -1,7 +1,7 @@
 import React from "react";
 import './FilterCheckbox.css';
 
-function FilterCheckbox({checked, changeHandler}) {
+function FilterCheckbox({checked, changeHandler, isDisabled}) {
     return (
         <div className="filter-group">
             <input
@@ -10,7 +10,7 @@ function FilterCheckbox({checked, changeHandler}) {
                 onChange={changeHandler}
                 className="filter-group__checkbox"
                 id="checkbox"
-                // disabled
+                disabled={isDisabled}
             />
             <label htmlFor="checkbox" className="filter-group__checkbox-label"></label>
             <span className="filter-group__background"></span>

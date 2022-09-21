@@ -40,6 +40,7 @@
 
 .filter-group__checkbox:disabled + .filter-group__checkbox-label {
     background-color: #8B8B8B;
+    cursor: default;
 }
 
 .filter-group__background {

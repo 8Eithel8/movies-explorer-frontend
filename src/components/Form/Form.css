@@ -78,6 +78,8 @@
     padding: 14px 0 15px 0;
     border: none;
     margin-top: 10px;
+    opacity: 1;
+    transition: opacity .3s ease;
 }
 
 @media (max-width: 767px) {
@@ -85,6 +87,12 @@
         font-size: 12px;
         line-height: 15px;
     }
+}
+
+.form__button:hover {
+    cursor: pointer;
+    opacity: .7;
+    transition: opacity .3s ease;
 }
 
 .form__button:disabled {

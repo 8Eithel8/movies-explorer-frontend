@@ -52,7 +52,7 @@ function App() {
     function onSignUp(userData, setErrorSubmit, setIsFieldDisabled){
         setIsFieldDisabled(true);
         register(userData)
-            .then((res) => onSignIn(userData, setErrorSubmit))
+            .then(() => onSignIn(userData, setErrorSubmit, setIsFieldDisabled))
             .catch((errCode) => {
                 authErrorHandler(errCode, setErrorSubmit);
                 setIsFieldDisabled(false);
@@ -196,14 +196,12 @@ function App() {
                 <Route path="/signup">
                     <Register
                         onSubmit={onSignUp}
-                        isLoggedIn={isLoggedIn}
                     />
                 </Route>
 
                 <Route path="/signin">
                     <Login
                         onSubmit={onSignIn}
-                        isLoggedIn={isLoggedIn}
                     />
                 </Route>
 
@@ -241,10 +239,12 @@ function App() {
                                     isLoggedIn={isLoggedIn}
                                     handleRemoveMovie={handleRemoveMovie}
                                     savedMovies={savedMovies}
-
                                 />
                                 <Route path="*">
-                                    <ErrorMessage history={history}/>
+                                    <ErrorMessage
+                                        history={history}
+                                        isLoggedIn={isLoggedIn}
+                                    />
                                 </Route>
                             </Switch>
 

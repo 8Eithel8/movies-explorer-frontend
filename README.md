@@ -20,6 +20,7 @@
 - адаптивной верстки.
 
 Ссылки на проект: 
+- https://github.com/8Eithel8/movies-explorer-frontend/pull/2 - pullrequest;
 - https://api.ulitina.movies.nomorepartiesxyz.ru - backend;
 - https://ulitina.movies.nomorepartiesxyz.ru - frontend;
 - https://www.figma.com/file/JOw6Wxr6QNS1a49m0vA627/Diploma-(Copy)?node-id=891%3A3857 - макет.

@@ -1,3 +1,6 @@
+export const BASE_URL = 'https://api.ulitina.movies.nomorepartiesxyz.ru';
+export const MOVIES_URL = 'https://api.nomoreparties.co';
+
 export const BAD_REQ_ERR_CODE = 400;
 export const UNAUTH_ERR_CODE = 401;
 export const NOT_FOUND_ERR_CODE = 404;

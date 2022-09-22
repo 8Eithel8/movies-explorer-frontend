@@ -1,6 +1,5 @@
 import {responseCheck} from "./MainApi.js";
-
-export const MOVIES_URL = 'https://api.nomoreparties.co';
+import {MOVIES_URL} from "./constants.js";
 
 export const getMovies = () => {
     return fetch(MOVIES_URL + '/beatfilm-movies', { method: 'GET' })

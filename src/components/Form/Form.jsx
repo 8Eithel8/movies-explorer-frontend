@@ -5,7 +5,7 @@ import {useFormWithValidation} from "../../utils/FormValidator.js";
 
 function Form(props) {
 
-    const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+    const { values, handleChange, errors, isValid } = useFormWithValidation();
     const [errorSubmit, setErrorSubmit] = React.useState('');
     const [isFieldDisabled, setIsFieldDisabled] = React.useState(false);
 

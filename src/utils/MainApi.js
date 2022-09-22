@@ -1,7 +1,9 @@
+import {JWT_LS_KEY} from "./constants.js";
+
 export const BASE_URL = 'https://api.ulitina.movies.nomorepartiesxyz.ru';
 
 const headers = () => ({
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+    'Authorization': `Bearer ${localStorage.getItem(JWT_LS_KEY)}`,
     'Content-Type': 'application/json'
 })
 

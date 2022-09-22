@@ -136,7 +136,8 @@ function Movies({ searchMovies, handleAddMovie, handleRemoveMovie, savedMovies }
     return (
         <main className="movies">
             <SearchForm
-                params={({text, isShorts})}
+                text={text}
+                isShorts={isShorts}
                 checkboxHandler={handleCheckbox}
                 inputHandler={setText}
                 onSubmit={handleSubmit}

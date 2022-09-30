@@ -1,13 +1,16 @@
 .movies {
-    max-width: 1140px;
+    max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 30px 100px 30px;
+    padding: 0 70px 100px 70px;
+    box-sizing: border-box;
     flex-grow: 1;
 }
 
 @media (max-width: 1023px) {
     .movies {
-        max-width: 708px;
+        max-width: 768px;
+        padding: 0 30px 100px 30px;
     }
 }
 
@@ -41,4 +44,8 @@
         max-width: 240px;
         margin-bottom: 100px;
     }
+}
+
+.movies__button_hidden {
+    display: none;
 }

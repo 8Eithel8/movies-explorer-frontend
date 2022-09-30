@@ -4,6 +4,9 @@
     overflow: hidden;
     background: #222;
     box-shadow: 0 16px 24px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    filter: brightness(1);
+    transition: filter 0.3s ease;
 }
 
 @media (max-width: 1023px) {
@@ -17,6 +20,12 @@
     .card {
         min-height: 235px;
     }
+}
+
+.card:hover {
+    opacity: .7;
+    filter: brightness(1.5);
+    transition: filter 0.3s ease;
 }
 
 .card__image {
@@ -49,6 +58,7 @@
     display: flex;
     justify-content: space-between;
     padding: 9px 12px;
+    gap: 10px;
 }
 
 .card__title {
@@ -78,22 +88,27 @@
     margin: 0;
 }
 
-.card__like {
+.card__button {
     width: 16px;
     height: 16px;
+}
+
+.card__button:hover {
+    cursor: pointer;
+}
+
+.card__button_like {
     border-radius: 50%;
     border: 2px solid #FFFFFF;
     background: #313131;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.09);
 }
 
-.card__like_checked {
+.card__button_checked {
     background: #2BE080;
 }
 
-.card__delete {
-    width: 16px;
-    height: 16px;
+.card__button_delete {
     background: url("../../images/close-btn.svg") no-repeat center;
     border: none;
 }

@@ -38,6 +38,11 @@
     left: 17px;
 }
 
+.filter-group__checkbox:disabled + .filter-group__checkbox-label {
+    background-color: #8B8B8B;
+    cursor: default;
+}
+
 .filter-group__background {
     position: absolute;
     content: '';
@@ -51,13 +56,17 @@
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
 }
 
+.filter-group__checkbox:disabled ~ .filter-group__background {
+    background-color: #525252;
+}
+
 .filter-group__text {
     font-family: 'Inter', 'Arial', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
     line-height: 18px;
-    color: #FFFFFF;
+    color: #fff;
     margin: 0 0 0 35px;
 }
 

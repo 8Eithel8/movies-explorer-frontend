@@ -1,14 +1,29 @@
 import './Form.css';
 import {Link} from "react-router-dom";
+import React from "react";
+import {useFormWithValidation} from "../../utils/FormValidator.js";
 
 function Form(props) {
+
+    const { values, handleChange, errors, isValid } = useFormWithValidation();
+    const [errorSubmit, setErrorSubmit] = React.useState('');
+    const [isFieldDisabled, setIsFieldDisabled] = React.useState(false);
+
+    React.useEffect(() => setErrorSubmit(''), [values]);
+
+    const onSubmit = (evt) => {
+        evt.preventDefault();
+        props.onSubmit(values, setErrorSubmit, setIsFieldDisabled)
+    }
+
     return (
-        <form className="form" name="form-auth">
+        <form className="form" name="form-auth" onSubmit={ onSubmit }>
             <div className="form__container">
                 {props.isShowFieldName &&
                     <label className="form__label" htmlFor="name">
                         Имя
                         <input
+                            disabled={ isFieldDisabled }
                             className="form__field"
                             type="text"
                             name="name"
@@ -16,13 +31,17 @@ function Form(props) {
                             placeholder="Имя"
                             required
                             minLength="2"
-                            maxLength="40"
+                            maxLength="30"
+                            pattern="[A-Za-zА-Яа-яЁё\s-]+"
+                            onChange={ handleChange }
                         />
+                        <span className="form__error">{ errors.name || '' }</span>
                     </label>
                 }
                 <label className="form__label" htmlFor="email">
                     E-mail
                     <input
+                        disabled={isFieldDisabled}
                         className="form__field"
                         type="email"
                         name="email"
@@ -30,30 +49,41 @@ function Form(props) {
                         placeholder="E-mail"
                         required
                         minLength="2"
-                        maxLength="40"
+                        maxLength="30"
+                        onChange={ handleChange }
                     />
+                    <span className="form__error">{ errors.email || '' }</span>
                 </label>
-                <label className="form__label" htmlFor="pass">
+                <label className="form__label" htmlFor="password">
                     Пароль
                     <input
-                        className="form__field error"
+                        disabled={isFieldDisabled}
+                        className="form__field"
                         type="password"
-                        name="pass"
-                        id="pass"
+                        name="password"
+                        id="password"
                         placeholder="Ваш пароль"
                         required
-                        minLength="2"
-                        maxLength="40"
+                        minLength="8"
+                        maxLength="30"
+                        onChange={ handleChange }
+                        autoComplete="on"
                     />
-                    <span className="form__error name-error">Что-то пошло не так...</span>
+                    <span className="form__error">{ errors.password || '' }</span>
                 </label>
             </div>
             <div>
-                <button className="form__button" type="submit"
-                        aria-label="Редактировать">{props.buttonText}
+                <p className="form__error">{ errorSubmit || '' }</p>
+                <button
+                    className="form__button"
+                    type="submit"
+                    aria-label="Редактировать"
+                    disabled={ isFieldDisabled || !isValid }
+                >
+                    { props.buttonText }
                 </button>
-                <p className="form__text">{props.questionText}
-                    <Link className="form__text form__text_color link"  to={props.linkPath}>{props.linkText}</Link>
+                <p className="form__text">{ props.questionText }
+                    <Link className="form__text form__text_color link"  to={ props.linkPath }>{ props.linkText }</Link>
                 </p>
             </div>
         </form>

@@ -1,7 +1,6 @@
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, 270px);
-    max-width: 1140px;
     margin: 0 auto;
     padding: 82px 0;
     column-gap: 20px;
@@ -9,14 +8,15 @@
     border-top: 1px solid rgba(170, 170, 170, .2);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1279px) {
     .cards {
-        grid-template-columns: repeat(3, 270px);
+        max-width: 850px;
     }
 }
 
 @media (max-width: 1023px) {
     .cards {
+        max-width: 708px;
         row-gap: 36px;
         column-gap: 30px;
         grid-template-columns: repeat(auto-fill, 339px);

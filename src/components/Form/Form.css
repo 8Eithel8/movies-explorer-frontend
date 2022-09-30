@@ -49,6 +49,11 @@
     border-bottom: 1px solid #4285F4;
 }
 
+.form__field:disabled {
+    background: #424242;
+    color: #8B8B8B;
+}
+
 .form__error {
     font-family: 'Inter', 'Arial', sans-serif;
     font-style: normal;
@@ -72,6 +77,9 @@
     color: #FFFFFF;
     padding: 14px 0 15px 0;
     border: none;
+    margin-top: 10px;
+    opacity: 1;
+    transition: opacity .3s ease;
 }
 
 @media (max-width: 767px) {
@@ -79,6 +87,16 @@
         font-size: 12px;
         line-height: 15px;
     }
+}
+
+.form__button:hover {
+    cursor: pointer;
+    opacity: .7;
+    transition: opacity .3s ease;
+}
+
+.form__button:disabled {
+    background-color: #8B8B8B;
 }
 
 .form__text {

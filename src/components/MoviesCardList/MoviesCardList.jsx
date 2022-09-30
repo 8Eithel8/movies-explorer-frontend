@@ -3,17 +3,15 @@ import './MoviesCardList.css';
 import React from "react";
 
 function MoviesCardList(props) {
-
     return (
         <div className="cards">
             {(props.cards || []).map((card, i) => (
                 <MoviesCard
-                    key={i}
-                    image={ card.image }
-                    duration={ card.duration }
-                    title={ card.title }
-                    like={ card.like }
+                    key={card.movieId}
+                    data = {card}
                     isSaved={props.isSaved}
+                    savedMovies={props.savedMovies}
+                    handleClick={props.handleClick}
                 />
             ))}
         </div>

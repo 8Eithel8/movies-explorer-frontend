@@ -79,10 +79,6 @@
     }
 }
 
-.error {
-    color: rgba(238, 52, 101, 1);
-}
-
 .link {
     text-decoration: none;
     opacity: 1;
